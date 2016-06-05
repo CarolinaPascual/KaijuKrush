@@ -7,7 +7,7 @@ public class CGame : MonoBehaviour
     private CGameState mState;
     private CSprite imgBackground;
 
-    //hola
+    
     void Awake()
     {
         if (mInstance != null)
