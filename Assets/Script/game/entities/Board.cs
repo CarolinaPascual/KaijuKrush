@@ -177,6 +177,10 @@ public class Board
             }
             }
         }
+        if (CMouse.release(0) & firstSelect[0] != -1)
+        {
+            matrixBoard[firstSelect[0]][firstSelect[1]].deselect();
+        }
     }
 
     public void switchingBehavior()
