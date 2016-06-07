@@ -9,12 +9,9 @@ using UnityEngine;
 public class token
 {
     const int STATE_NORMAL = 0;
-    const int STATE_SWITCHING = 1;
-    const int STATE_FALLING = 2;
-    const int STATE_DISPLACED = 3;
-    const int STATE_DYING = 4;
+    const int STATE_MOVING = 1;
 
-    const int SPEED = 4;
+    const int SPEED = 8;
 
     public CSprite imgIcon { get; set; }
     public int Type { get; set; }
@@ -40,6 +37,14 @@ public class token
     {
         if (imgIcon != null)
         {
+            if (imgIcon.getX() != finalX | imgIcon.getY() != finalY)
+            {
+                current_state = STATE_MOVING;
+                move();
+            }
+            else if (current_state == STATE_MOVING) {
+                current_state = STATE_NORMAL;
+            }            
            imgIcon.update();
         }
     }
@@ -71,10 +76,9 @@ public class token
         }
 
         //Corrigo la posicion si estoy mas cerca que la velocidad
-        if (imgIcon.getX() - finalX < SPEED & imgIcon.getX() - finalX > -SPEED)
+        if (Math.Abs(imgIcon.getX() - finalX)< SPEED)            
         {
-            imgIcon.setX(finalX);
-            current_state = STATE_NORMAL;
+            imgIcon.setX(finalX);            
         }
 
         if (imgIcon.getY() < finalY)
@@ -85,10 +89,9 @@ public class token
         {
             imgIcon.setY(imgIcon.getY() - SPEED);
         }
-        if (imgIcon.getY() - finalY < SPEED & imgIcon.getY() - finalY > -SPEED)
+        if (Math.Abs(imgIcon.getY() - finalY) < SPEED)
         {
-            imgIcon.setY(finalY);
-            current_state = STATE_NORMAL;
+            imgIcon.setY(finalY);           
         }
 
 

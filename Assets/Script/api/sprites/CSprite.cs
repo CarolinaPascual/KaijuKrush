@@ -28,9 +28,6 @@ public class CSprite : CGameObject
 
         Vector3 pos = new Vector3(getX(), getY() * -1, 0.0f);
         mTransform.position = pos;
-
-
-
     }
 
     override public void destroy()
@@ -77,5 +74,9 @@ public class CSprite : CGameObject
         Color color = mSpriteRenderer.material.color;
         return color.a;
 
+    }
+    public void setVisible(bool aIsVisible)
+    {
+        mSpriteRenderer.enabled = aIsVisible;
     }
 }
