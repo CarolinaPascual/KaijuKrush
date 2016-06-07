@@ -57,7 +57,7 @@ public class CMouse
     }
     public static bool pressed(int button = 0)
     {
-        if (Input.GetMouseButtonDown(button))
+        if (Input.GetMouseButton(button))
         {
             return true;
         }

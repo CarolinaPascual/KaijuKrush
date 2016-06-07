@@ -9,18 +9,16 @@ public class CLevelState : CGameState
     private Kaiju monster;
     private Enemy building;
     private CSpriteManager mSpriteManager;
-    private CText mText;
-    //private CShip mShip; 
+    private CText mText;     
     public CLevelState()
     {
-        //mPlayer = new CPlayer ();
+        
         mBoard = new Board();
         monster = new Kaiju(1);
-        building = new Enemy();
-        //mShip = new CShip();
+        building = new Enemy();        
         mText = new CText("TEST", CText.alignment.TOP_CENTER);
-        mText.setX(100);
-        mText.setY(100);
+        mText.setX(0);
+        mText.setY(0);
 
         mSpriteManager = new CSpriteManager();
 
@@ -34,13 +32,12 @@ public class CLevelState : CGameState
     override public void update()
     {
         base.update();
-        mSpriteManager.update();
-        //mPlayer.update ();
+        mSpriteManager.update();        
         CMouse.update();
         mBoard.update();
         monster.update();
         building.update();
-        //mShip.update(); 
+        mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());       
         mText.update();
     }
 
@@ -49,10 +46,10 @@ public class CLevelState : CGameState
         base.render();
         mSpriteManager.render();
         mBoard.render();
-        //mPlayer.render ();
+        
         monster.render();
         building.render();
-        //mShip.render(); 
+        
         mText.render();
     }
 
@@ -63,9 +60,6 @@ public class CLevelState : CGameState
         mSpriteManager = null;
         mText.destroy();
         mText = null;
-        //mPlayer.destroy ();
-        //mPlayer = null;
-        //mShip.destroy();
-        //mShip = null; 
+       
     }
 }

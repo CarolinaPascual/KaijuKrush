@@ -18,7 +18,7 @@ public class Board
     private int boardWidth = 7;
     private int[] firstSelect = { -1, -1 };
     private int[] secondSelect = { -1, -1 };
-    private int movementsLeft = 25;
+    private int movementsLeft  = 25;
     private int current_state;
 
 
@@ -118,6 +118,9 @@ public class Board
                         {
                             fillBoard();
                         }
+                        if (movementsLeft <= 0) {
+                            current_state = STATE_LOSE;
+                        }
                     }
                 }
                 break;
@@ -139,9 +142,10 @@ public class Board
             }
 
         }
-        if (CMouse.release(0))
+        if (CMouse.pressed(0))
         {
             int[] mousePos = getMouseTile();
+            if (mousePos[0] != firstSelect[0] | mousePos[1] != firstSelect[1]) { 
             if (mousePos[0] == -1 & firstSelect[0] != -1)
             {
                 matrixBoard[firstSelect[0]][firstSelect[1]].deselect();
@@ -171,7 +175,7 @@ public class Board
                     secondSelect[1] = -1;
                 }
             }
-
+            }
         }
     }
 
@@ -513,6 +517,9 @@ public class Board
 
 
         return possible;
+    }
+    public int getMovementsLeft() {
+        return movementsLeft;
     }
 
 }

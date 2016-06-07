@@ -21,7 +21,7 @@ public class CText : CGameObject
     }
 
 
-    public CText(string aText = "noText", alignment aAlign = alignment.CENTER, int aFontSize = 40, string aFontName = "arial")
+    public CText(string aText = "noText", alignment aAlign = alignment.CENTER, int aFontSize = 38, string aFontName = "Beast")
     {
         mSprite = new GameObject();
         mSprite.name = aText;
