@@ -6,7 +6,7 @@ public class CLevelState : CGameState
 {
     //private CPlayer mPlayer;
     private Board mBoard;
-    private Kaiju monster;
+    private Dinosaur monster;
     private Enemy building;
     private CSpriteManager mSpriteManager;
     private CText mText;     
@@ -14,7 +14,7 @@ public class CLevelState : CGameState
     {
         
         mBoard = new Board();
-        monster = new Kaiju(1);
+        monster = new Dinosaur(1);
         building = new Enemy();        
         mText = new CText("TEST", CText.alignment.TOP_CENTER);
         mText.setX(0);

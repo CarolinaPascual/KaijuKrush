@@ -8,17 +8,14 @@ using UnityEngine;
 //{
 public class Kaiju
 {
-    public CSprite beast { get; set; }
+    public CAnimatedSprite beast { get; set; }
     public int type { get; set; }
+    public int prefferedFood { get; set; }
+    public Sprite[] originalSprites { get; set; }
 
-    public Kaiju(int aType)
+    public Kaiju()
     {
-        type = aType;
-        beast = new CSprite();
-        beast.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/Kaijus/001/Large000"));
-        beast.setY(535);
-        beast.setX(CGameConstants.SCREEN_WIDTH / 4 - 25);
-        beast.setSortingLayer("Icons");
+       
 
     }
     public void update()
