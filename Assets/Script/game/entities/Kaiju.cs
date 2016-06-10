@@ -12,19 +12,25 @@ public class Kaiju
     public int type { get; set; }
     public int prefferedFood { get; set; }
     public Sprite[] originalSprites { get; set; }
+    public float scale { get; set; }
+    public int growCounter { get; set; }
 
     public Kaiju()
     {
        
 
     }
-    public void update()
+    virtual public void update()
     {
         beast.update();
     }
     public void render()
     {
         beast.render();
+    }
+    public void destroy()
+    {
+
     }
 }
 //}

@@ -79,4 +79,15 @@ public class CSprite : CGameObject
     {
         mSpriteRenderer.enabled = aIsVisible;
     }
+    public void setName(string aName)
+    {
+        mSprite.name = aName;
+    }
+
+    // Resizea pero recibe un porcentaje
+    public void setScale (float aScale)
+    {
+        float scale = aScale / 100;
+        mSprite.transform.localScale = new Vector3(scale, scale, scale);        
+    }
 }

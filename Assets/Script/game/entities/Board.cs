@@ -50,6 +50,7 @@ public class Board
 
                 matrixBoard[i][j].background.setY(i * matrixBoard[i][j].background.getHeight() + 600);
                 matrixBoard[i][j].background.setX(j * matrixBoard[i][j].background.getWidth() + offsetCenter);
+                matrixBoard[i][j].background.setName("Background " + i + " " + j);
 
             }
 
