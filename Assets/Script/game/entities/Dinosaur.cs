@@ -39,16 +39,16 @@ class Dinosaur : Kaiju
         switch (getState())
         {
             case STATE_NORMAL:
-                beast.initAnimation(1, 8, 8, true);
+                beast.initAnimation(1, 8, 6, true);
                 break;
             case STATE_EAT:
-                beast.initAnimation(9, 12, 8, false);
+                beast.initAnimation(9, 12, 6, false);
                 break;
             case STATE_LOSE:
-                beast.initAnimation(13, 16, 8, true);
+                beast.initAnimation(13, 16, 6, true);
                 break;
             case STATE_SKILL:
-                beast.initAnimation(17, 27, 8, false);
+                beast.initAnimation(17, 27, 6, false);
                 break;
         }
 }

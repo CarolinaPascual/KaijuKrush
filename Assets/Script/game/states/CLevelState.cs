@@ -27,7 +27,7 @@ public class CLevelState : CGameState
         mSpriteManager = new CSpriteManager();
         mCurrentData = new CurrentStageData();
         mBoard.movementsLeft = 15;
-        mBoard.targetScore = 120;
+        mBoard.targetScore = 125;
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
         CurrentStageData.inst().assignData(monster, mBoard,scoreCoefficient);
 
@@ -57,6 +57,8 @@ public class CLevelState : CGameState
             else
             {
                 resultText.setText("YOU LOSE");
+                if (monster.getState() != 2) { monster.setState(2); }
+                
             }
         }
         resultText.update();
