@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\api\sprites\CSprite.cs" />
     <Compile Include="Assets\Script\api\sprites\CText.cs" />
     <Compile Include="Assets\Script\game\CGameConstants.cs" />
+    <Compile Include="Assets\Script\game\entities\CurrentStageData.cs" />
     <Compile Include="Assets\Script\game\entities\Dinosaur.cs" />
     <Compile Include="Assets\Script\game\Manager\CManager.cs" />
     <Compile Include="Assets\Script\game\Manager\CSpriteManager.cs" />

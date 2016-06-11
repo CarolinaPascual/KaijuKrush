@@ -10,8 +10,9 @@ class Dinosaur : Kaiju
     private const int STATE_NORMAL = 0;
     private const int STATE_EAT = 1;
     private const int STATE_LOSE = 2;
+    private const int STATE_SKILL = 3;
 
-    private int currentState;
+    
     public Dinosaur(int aType)
     {
         scale = 30;
@@ -30,7 +31,7 @@ class Dinosaur : Kaiju
         prefferedFood = 1;
     }
 
-    public void setState(int aState)
+    override public void setState(int aState)
     {
         beast.setState(aState);
         currentState = aState;
@@ -46,31 +47,32 @@ class Dinosaur : Kaiju
             case STATE_LOSE:
                 beast.initAnimation(13, 16, 8, true);
                 break;
+            case STATE_SKILL:
+                beast.initAnimation(17, 27, 8, false);
+                break;
         }
-
-       
-       
-
-    }
-    public int getState()
-    {
-        return currentState;
-    }
+}
+    
     override public void update()
-    {
-        if (CMouse.firstPress(0))
-        {
-            growCounter += 2;   
-        }
-       
-       if (growCounter > 0)
-        {
-            scale++;
-            growCounter--;
-            beast.setScale(scale);
-        }
-
+    {       
         base.update();
+        if (currentState == STATE_EAT)
+        {
+            if (beast.isEnded())
+            {
+                setState(STATE_NORMAL);
+            }
+        }
+        if (growCounter > 0 & scale<= 110)
+        {
+            float aux = growCounter / 10;
+            scale += aux;
+            growCounter -= aux;
+            beast.setScale(scale);
+            
+        }
     }
+
+  
 }
 

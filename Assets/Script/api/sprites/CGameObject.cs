@@ -12,7 +12,7 @@ public class CGameObject
     private int mState = 0;
     private float mTimeState = 0.0f;
 
-    private string mName;
+    
 
     public CGameObject()
     {

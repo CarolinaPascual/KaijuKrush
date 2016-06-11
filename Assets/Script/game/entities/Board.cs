@@ -18,7 +18,8 @@ public class Board
     private int boardWidth = 7;
     private int[] firstSelect = { -1, -1 };
     private int[] secondSelect = { -1, -1 };
-    private int movementsLeft  = 25;
+    public int movementsLeft { get; set; }
+    public int targetScore { get; set; }
     private int current_state;
 
 
@@ -108,7 +109,8 @@ public class Board
                 {
                     if (checkMatches(true))
                     {
-                        deleteMatches();
+                        countScore();
+                        deleteMatches();                        
                         cascadeBoard1();
                         fillSpaces();
                     }
@@ -120,6 +122,7 @@ public class Board
                             fillBoard();
                         }
                         if (movementsLeft <= 0) {
+                            
                             current_state = STATE_LOSE;
                         }
                     }
@@ -390,8 +393,37 @@ public class Board
         {
             for (int j = 0; j < empties[i]; j++)
             {
-
-                int iconAux = rng.Next(0, 4);
+                bool matched = true;
+                int iconAux = 0;
+                while (matched)
+                {
+                    iconAux = rng.Next(0, 4);
+                    if (j>1){
+                        if (matrixBoard[j-2][i].food.Type != iconAux)
+                        {
+                            matched = false;
+                        }                        
+                    }
+                    else { matched = false; }
+                    if (i > 1)
+                    {
+                        if (empties[i - 2] >= j)
+                        {
+                            if (matrixBoard[j][i-2].food.Type != iconAux)
+                            {
+                                matched = false;
+                            }
+                            else
+                            {
+                                matched = true;
+                            }
+                        }
+                    }
+                    else { matched = false; }
+                    
+                }
+                
+                
                 matrixBoard[j][i].setIcon("Sprites/Placeholders_Prototype/food" + iconAux.ToString());
                 matrixBoard[j][i].food.Type = iconAux;
                 matrixBoard[j][i].food.imgIcon.setX(matrixBoard[j][i].background.getX());
@@ -401,6 +433,7 @@ public class Board
 
                 matrixBoard[j][i].food.finalX = matrixBoard[j][i].background.getX();
                 matrixBoard[j][i].food.finalY = matrixBoard[j][i].background.getY();
+                matrixBoard[j][i].food.imgIcon.setVisible(false);
             }
 
 
@@ -471,11 +504,107 @@ public class Board
         return ret;
 
 
-    }
-    public int countScore()
-    {
+    }   
 
-        return 0;
+    public void countScore()
+    {
+        float totalScore = 0;
+        //recorrida por fila
+        for (int i = 0; i < matrixBoard.Count(); i++)
+        {
+            for (int j = 0; j < matrixBoard[i].Count(); j++)
+            {
+                int count = 1;
+
+                if (matrixBoard[i][j].food.matched & j+1 <matrixBoard[i].Count())
+                {
+                    while (matrixBoard[i][j+1].food.Type == matrixBoard[i][j].food.Type)
+                    {
+                        count++;
+                        j++;
+                        if (j >= matrixBoard[i].Count()-1) { break;}
+                    }
+                    if (count >= 3)
+                    {
+                        float auxScore = 3;
+                        float multiplier = 1;
+                        if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
+                        if (matrixBoard[i][j].food.Type == CurrentStageData.inst().currentKaiju.prefferedFood) {
+                            auxScore = 5;
+                            CurrentStageData.inst().currentKaiju.setState(1);
+                        }
+                        switch (count)
+                        {
+                            case 3:
+                                multiplier = 1;
+                                break;
+                            case 4:
+                                multiplier = 1.5f;
+                                break;
+                            case 5:
+                                multiplier = 2.0f;
+                                break;
+                            case 6:
+                                multiplier = 2.5f;
+                                break;
+                        }
+                        auxScore = auxScore * multiplier;
+                        totalScore += auxScore;
+                        
+                    }
+                    count = 1;
+
+                }
+            }
+        }
+        //recorrida por columna
+        for (int j = 0; j < matrixBoard.Count(); j++)
+        {
+            for (int i = 0; i < matrixBoard.Count(); i++)
+            {
+                int count = 1;
+
+                if (matrixBoard[i][j].food.matched & i + 1 < matrixBoard.Count())
+                {
+                    while (matrixBoard[i+1][j].food.Type == matrixBoard[i][j].food.Type)
+                    {
+                        count++;
+                        i++;
+                        if (i >= matrixBoard.Count() - 1) { break; }
+                    }
+                    if (count >= 3)
+                    {
+                        float auxScore = 3;
+                        float multiplier = 1;
+                        if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
+                        if (matrixBoard[i][j].food.Type == CurrentStageData.inst().currentKaiju.prefferedFood) { auxScore = 5;
+                            CurrentStageData.inst().currentKaiju.setState(1);
+                        }
+                        switch (count)
+                        {
+                            case 3:
+                                multiplier = 1;
+                                break;
+                            case 4:
+                                multiplier = 1.5f;
+                                break;
+                            case 5:
+                                multiplier = 2.0f;
+                                break;
+                            case 6:
+                                multiplier = 2.5f;
+                                break;
+                        }
+                        auxScore = auxScore * multiplier;
+                        totalScore += auxScore;
+                        
+                    }
+                    count = 1;
+
+                }
+            }
+        }
+        CurrentStageData.inst().addScore(totalScore);
     }
 
     public int boardState()
@@ -525,6 +654,10 @@ public class Board
     }
     public int getMovementsLeft() {
         return movementsLeft;
+    }
+    public float getUpBorder()
+    {
+        return matrixBoard[0][0].background.getY() - matrixBoard[0][0].background.getHeight() / 2;
     }
 
 }

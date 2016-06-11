@@ -52,4 +52,8 @@ public class CAnimatedSprite : CSprite
     {
         mAnim.init(aStartFrame, aEndFrame, aFPS, aIsLoop);
     }
+    public bool isEnded()
+    {
+        return mAnim.isEnded();
+    }
 }

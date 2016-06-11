@@ -21,6 +21,7 @@ public class token
     public float finalX { get; set; }
     public float finalY { get; set; }
 
+
     public token()
     {
         imgIcon = new CSprite();
@@ -39,6 +40,11 @@ public class token
         {
             if (imgIcon.getX() != finalX | imgIcon.getY() != finalY)
             {
+                if (imgIcon.getY() > CurrentStageData.inst().currentBoard.getUpBorder())
+                {
+                    imgIcon.setVisible(true);
+                }
+                
                 current_state = STATE_MOVING;
                 move();
             }

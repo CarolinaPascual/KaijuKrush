@@ -13,7 +13,8 @@ public class Kaiju
     public int prefferedFood { get; set; }
     public Sprite[] originalSprites { get; set; }
     public float scale { get; set; }
-    public int growCounter { get; set; }
+    public float growCounter { get; set; }
+    public int currentState { get; set; }
 
     public Kaiju()
     {
@@ -31,6 +32,18 @@ public class Kaiju
     public void destroy()
     {
 
+    }
+    virtual public void setState(int aState)
+    {
+
+    }
+    public int getState()
+    {
+        return currentState;
+    }
+     public void addGrow(float grow)
+    {
+        growCounter += grow;
     }
 }
 //}
