@@ -12,7 +12,8 @@ class Dinosaur : Kaiju
     private const int STATE_LOSE = 2;
     private const int STATE_SKILL = 3;
     private const int STATE_WIN = 4;
-
+    private Sprite[] stage2Imgs;
+    private Sprite[] stage3Imgs;
 
 
     public Dinosaur(int aStage,int aFirstBreak,int aSecondBreak)
@@ -24,6 +25,8 @@ class Dinosaur : Kaiju
         beast = new CAnimatedSprite();
         beast.setName("Dinosaur");
         beast.setFrames(Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/00" + stage));
+        stage2Imgs = Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/002");
+        stage3Imgs = Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/003");
 
         setState(STATE_NORMAL);
         beast.setScale(scale);
@@ -88,7 +91,14 @@ class Dinosaur : Kaiju
     public void growStage()
     {
         stage++;
-        beast.setFrames(Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/00" + stage));
+        if (stage == 2)
+        {
+            beast.setFrames(stage2Imgs);
+        }else if (stage == 3)
+        {
+            beast.setFrames(stage3Imgs);
+        }
+        
     }
 
   
