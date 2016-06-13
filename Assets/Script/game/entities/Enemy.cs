@@ -8,12 +8,18 @@ using UnityEngine;
 //{
 public class Enemy
 {
-    public CSprite building { get; set; }
+    private const int STATE_NORMAL = 0;
+    private const int STATE_DESTRUCTION = 1;
+
+    public int currentState;
+    public CAnimatedSprite building { get; set; }
 
     public Enemy()
     {
-        building = new CSprite();
-        building.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/Building"));
+        building = new CAnimatedSprite();
+        building.setName("Building");
+        building.setFrames(Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Building"));
+        setState(STATE_NORMAL);
         building.setY(535);
         building.setX((CGameConstants.SCREEN_WIDTH / 4) * 3 + 30);
         building.setSortingLayer("Icons");
@@ -25,6 +31,28 @@ public class Enemy
     public void render()
     {
         building.render();
+    }
+
+       public void setState(int aState)
+    {
+        building.setState(aState);
+        currentState = aState;
+        building.setVisible(true);
+        switch (getState())
+        {
+            case STATE_NORMAL:
+                building.initAnimation(1, 1, 6, false);
+                break;
+            case STATE_DESTRUCTION:                 
+                building.initAnimation(2, 27, 6, false);
+                
+                break;
+            
+        }
+    }
+    public int getState()
+    {
+        return currentState;
     }
 }
 //}

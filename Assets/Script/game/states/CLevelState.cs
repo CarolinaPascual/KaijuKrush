@@ -11,12 +11,13 @@ public class CLevelState : CGameState
     private CSpriteManager mSpriteManager;
     private CurrentStageData mCurrentData;
     private CText mText;
-    private CText resultText;     
+    private CText resultText;
+    private bool ended;
     public CLevelState()
     {
-        
+        ended = false;
         mBoard = new Board();
-        monster = new Dinosaur(1);
+        monster = new Dinosaur(1,53,76);
         building = new Enemy();        
         mText = new CText("TEST", CText.alignment.TOP_CENTER);        
         mText.setX(0);
@@ -27,7 +28,7 @@ public class CLevelState : CGameState
         mSpriteManager = new CSpriteManager();
         mCurrentData = new CurrentStageData();
         mBoard.movementsLeft = 15;
-        mBoard.targetScore = 125;
+        mBoard.targetScore = 110;
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
         CurrentStageData.inst().assignData(monster, mBoard,scoreCoefficient);
 
@@ -43,16 +44,34 @@ public class CLevelState : CGameState
         base.update();
         mSpriteManager.update();        
         CMouse.update();
-        mBoard.update();
+        mBoard.update();               
         monster.update();
         building.update();
         mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());       
         mText.update();
-        if (mBoard.getMovementsLeft() < 1)
+        if (mBoard.getMovementsLeft() < 1 & mBoard.current_state == 0)
         {
             if (CurrentStageData.inst().currentKaiju.scale >= 100)
             {
+                
                 resultText.setText("YOU WIN");
+                if (!ended) { 
+                    monster.setState(4);
+                    building.setState(1);
+                    ended = true;
+                }
+                if (!building.building.isEnded())
+                {
+                    CurrentStageData.inst().cameraShake();
+                }
+                else
+                    if (Camera.main.transform.position.x > 360)
+                {
+                    Camera.main.transform.Translate(new Vector3(-15, 0, 0));
+                }if (Camera.main.transform.position.x < 360)
+                {
+                    Camera.main.transform.Translate(new Vector3(15, 0, 0));
+                }
             }
             else
             {

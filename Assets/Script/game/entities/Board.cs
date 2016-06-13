@@ -20,7 +20,7 @@ public class Board
     private int[] secondSelect = { -1, -1 };
     public int movementsLeft { get; set; }
     public int targetScore { get; set; }
-    private int current_state;
+    public int current_state { get; set; }
 
 
     public Board()

@@ -12,7 +12,8 @@ class CurrentStageData
     public Kaiju currentKaiju { get; set; }
     public Board currentBoard { get; set; }
     public float growScoreRelation { get; set; }
-
+    private int shakeAux = 1;
+    
 
     public CurrentStageData()
     {
@@ -65,5 +66,31 @@ class CurrentStageData
         score += aScore;
         currentKaiju.addGrow(aScore * growScoreRelation);
     }
+
+    public void cameraShake()
+    {
+        if (shakeAux == 1)
+        {            
+            Camera.main.transform.Translate(new Vector3(15, 0, 0));
+            if(Camera.main.transform.position.x == 375) { 
+            shakeAux *= -1;
+            }
+        } else
+        {            
+            Camera.main.transform.Translate(new Vector3(-15, 0, 0));
+            if (Camera.main.transform.position.x == 345)
+            {
+                shakeAux *= -1;
+            }
+           
+            
+        }
+        
+    }
+   
+    
+
+ 
+
 }
 
