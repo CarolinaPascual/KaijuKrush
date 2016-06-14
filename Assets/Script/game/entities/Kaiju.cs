@@ -48,5 +48,22 @@ public class Kaiju
     {
         growCounter += grow;
     }
+    public void firstPower()
+    {
+        List<List<Tile>> mBoard = CurrentStageData.inst().currentBoard.matrixBoard;
+        for (int i = 0; i < mBoard.Count(); i++)
+        {
+            for (int j = 0; j < mBoard[i].Count(); j++)
+            {
+                if (mBoard[i][j].food.Type == 3)
+                {
+                    mBoard[i][j].clearFood();
+                }
+            }
+        }
+        CurrentStageData.inst().currentBoard.cascadeBoard1();
+        CurrentStageData.inst().currentBoard.fillSpaces();
+        CurrentStageData.inst().currentBoard.current_state = 3;
+    }
 }
 //}

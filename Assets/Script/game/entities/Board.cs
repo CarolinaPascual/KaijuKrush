@@ -99,6 +99,11 @@ public class Board
             case STATE_LOSE:
                 break;
             case STATE_NORMAL:
+                if (CKeyboard.pressed(CKeyboard.LEFT))
+                {
+                    CurrentStageData.inst().currentKaiju.firstPower();
+                    return;
+                }
                 tokenSelection();
                 break;
             case STATE_CHANGING:
