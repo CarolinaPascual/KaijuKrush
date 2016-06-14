@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+//test
 class CurrentStageData
     {
     private static CurrentStageData mInst = null;
@@ -79,7 +79,7 @@ class CurrentStageData
         {            
             Camera.main.transform.Translate(new Vector3(-15, 0, 0));
             if (Camera.main.transform.position.x == 345)
-            {
+            { 
                 shakeAux *= -1;
             }
            
