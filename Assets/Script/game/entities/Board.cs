@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Board
 {
-    const int STATE_LOSE = 0;
+    const int STATE_END = 0;
     const int STATE_NORMAL = 1;
     const int STATE_CHANGING = 2;
     const int STATE_ARRANGING = 3;
@@ -96,7 +96,7 @@ public class Board
         }
         switch (current_state)
         {
-            case STATE_LOSE:
+            case STATE_END:
                 break;
             case STATE_NORMAL:
                 if (CKeyboard.pressed(CKeyboard.LEFT))
@@ -126,9 +126,9 @@ public class Board
                         {
                             fillBoard();
                         }
-                        if (movementsLeft <= 0) {
+                        if (movementsLeft <= 0 |CurrentStageData.inst().currentKaiju.scale >= 100 ) {
                             
-                            current_state = STATE_LOSE;
+                            current_state = STATE_END;
                         }
                     }
                 }
@@ -664,6 +664,20 @@ public class Board
     {
         return matrixBoard[0][0].background.getY() - matrixBoard[0][0].background.getHeight() / 2;
     }
+
+    public void destroy()
+    {
+        for (int i = 0; i < matrixBoard.Count(); i++)
+        {
+            for (int j = 0; j < matrixBoard[i].Count(); j++)
+            {
+                matrixBoard[i][j].destroy();
+            }
+        }
+        matrixBoard.Clear();
+    
+   
+     }
 
 }
 

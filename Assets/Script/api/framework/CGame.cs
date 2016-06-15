@@ -19,10 +19,13 @@ public class CGame : MonoBehaviour
 
         CMouse.init();
 
-        setState(new CLevelState());
-        setImage("Sprites/Placeholders_Prototype/level_Background");
+        setState(new CMenuState());
+        //setImage("Sprites/Placeholders_Prototype/level_Background");
     }
-
+    static public CGame inst()
+    {
+        return mInstance;
+    }
 
     // Use this for initialization
     void Start()
@@ -75,7 +78,7 @@ public class CGame : MonoBehaviour
         mState = aState;
         mState.init();
     }
-    public void setImage(string img)
+    public void  setImage(string img)
     {
         imgBackground = new CSprite();
         imgBackground.setImage(Resources.Load<Sprite>(img));

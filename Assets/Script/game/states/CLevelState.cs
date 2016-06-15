@@ -4,7 +4,11 @@ using System.Collections;
 
 public class CLevelState : CGameState
 {
+    const int STATE_PLAYING = 0;
+    const int STATE_WIN = 1;
+    const int STATE_LOSE = 2;
     //private CPlayer mPlayer;
+    private int current_state;
     private Board mBoard;
     private Dinosaur monster;
     private Enemy building;
@@ -12,14 +16,19 @@ public class CLevelState : CGameState
     private CurrentStageData mCurrentData;
     private CText mText;
     private CText resultText;
-    private bool ended;
+
+    private CSprite screenDim;
+
+
+
+
     public CLevelState()
     {
-        ended = false;
+        current_state = STATE_PLAYING;
         mBoard = new Board();
-        monster = new Dinosaur(1,53,76);
-        building = new Enemy();        
-        mText = new CText("TEST", CText.alignment.TOP_CENTER);        
+        monster = new Dinosaur(1, 53, 76);
+        building = new Enemy();
+        mText = new CText("TEST", CText.alignment.TOP_CENTER);
         mText.setX(0);
         mText.setY(0);
         resultText = new CText("", CText.alignment.TOP_CENTER);
@@ -27,10 +36,13 @@ public class CLevelState : CGameState
         resultText.setY(100);
         mSpriteManager = new CSpriteManager();
         mCurrentData = new CurrentStageData();
-        mBoard.movementsLeft = 15;
+        mBoard.movementsLeft = 2;
         mBoard.targetScore = 110;
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
-        CurrentStageData.inst().assignData(monster, mBoard,scoreCoefficient);
+        CurrentStageData.inst().assignData(monster, mBoard, scoreCoefficient);
+        screenDim = new CSprite();
+        screenDim.setSortingLayer("ScreenShade");
+        screenDim.setName("Sombra");
 
     }
 
@@ -42,45 +54,65 @@ public class CLevelState : CGameState
     override public void update()
     {
         base.update();
-        mSpriteManager.update();        
+        mSpriteManager.update();
         CMouse.update();
-        mBoard.update();               
+        mBoard.update();
         monster.update();
         building.update();
-        mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());       
+        screenDim.update();
+        mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());
         mText.update();
-        if (mBoard.getMovementsLeft() < 1 & mBoard.current_state == 0)
+        resultText.update();
+        switch (current_state)
         {
-            if (CurrentStageData.inst().currentKaiju.scale >= 100)
-            {
-                
-                resultText.setText("YOU WIN");
-                if (!ended) { 
-                    monster.setState(4);
-                    building.setState(1);
-                    ended = true;
+            case STATE_PLAYING:
+                if (mBoard.current_state == 0)
+                {
+                    if (CurrentStageData.inst().currentKaiju.scale >= 100)
+                    {
+                        current_state = STATE_WIN;
+                        resultText.setText("YOU WIN");
+                        monster.setState(4);
+                        building.setState(1);
+
+                    }
+                    else
+                    {
+                        
+                                                
+                        screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
+                        screenDim.setX(0);
+                        screenDim.setY(0);
+                        current_state = STATE_LOSE;
+                        resultText.setText("YOU LOSE");
+                        monster.setState(2);
+
+                    }
                 }
+                break;
+
+            case STATE_WIN:
                 if (!building.building.isEnded())
                 {
                     CurrentStageData.inst().cameraShake();
                 }
                 else
-                    if (Camera.main.transform.position.x > 360)
+                     if (Camera.main.transform.position.x > 360)
                 {
                     Camera.main.transform.Translate(new Vector3(-15, 0, 0));
-                }if (Camera.main.transform.position.x < 360)
+                }
+                if (Camera.main.transform.position.x < 360)
                 {
                     Camera.main.transform.Translate(new Vector3(15, 0, 0));
                 }
-            }
-            else
-            {
-                resultText.setText("YOU LOSE");
-                if (monster.getState() != 2) { monster.setState(2); }
-                
-            }
+                break;
+
+            case STATE_LOSE:
+                break;
         }
-        resultText.update();
+
+
+
     }
 
     override public void render()
@@ -88,10 +120,10 @@ public class CLevelState : CGameState
         base.render();
         mSpriteManager.render();
         mBoard.render();
-        
+        screenDim.render();
         monster.render();
         building.render();
-        
+
         mText.render();
         resultText.render();
     }
@@ -103,6 +135,15 @@ public class CLevelState : CGameState
         mSpriteManager = null;
         mText.destroy();
         mText = null;
-       
+        resultText.destroy();
+        resultText = null;
+        mBoard.destroy();
+        mBoard = null;
+        monster.destroy();
+        monster = null;
+        building.destroy();
+        building = null;
+        CurrentStageData.inst().clearData();    
     }
+
 }

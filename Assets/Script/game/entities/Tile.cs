@@ -59,7 +59,12 @@ public class Tile
         food.matched = false;
         food.cascadeAmount = 0;
     }
+    public void destroy()
+    {
+        background.destroy();
+        food.destroy();
 
+}
 
 }
 //}

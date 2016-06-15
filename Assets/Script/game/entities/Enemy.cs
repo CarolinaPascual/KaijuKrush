@@ -54,5 +54,9 @@ public class Enemy
     {
         return currentState;
     }
+    public void destroy()
+    {
+        building.destroy();
+    }
 }
 //}
