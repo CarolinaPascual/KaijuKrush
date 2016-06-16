@@ -26,7 +26,7 @@ public class Board
     public Board()
     {
 
-        current_state = STATE_NORMAL;
+        current_state = STATE_ARRANGING;
         matrixBoard = new List<List<Tile>>();
         for (int i = 0; i < boardHeight; i++)
         {
@@ -56,7 +56,8 @@ public class Board
             }
 
         }
-        fillBoard();
+        //fillBoard();
+        fillSpaces();
 
     }
 
@@ -101,7 +102,7 @@ public class Board
             case STATE_NORMAL:
                 if (CKeyboard.pressed(CKeyboard.LEFT))
                 {
-                    CurrentStageData.inst().currentKaiju.firstPower();
+                    CurrentStageData.currentKaiju.firstPower();
                     return;
                 }
                 tokenSelection();
@@ -126,7 +127,7 @@ public class Board
                         {
                             fillBoard();
                         }
-                        if (movementsLeft <= 0 |CurrentStageData.inst().currentKaiju.scale >= 100 ) {
+                        if (movementsLeft <= 0 |CurrentStageData.currentKaiju.scale >= 100 ) {
                             
                             current_state = STATE_END;
                         }
@@ -407,10 +408,15 @@ public class Board
                         if (matrixBoard[j-2][i].food.Type != iconAux)
                         {
                             matched = false;
-                        }                        
+                        }
+                        else
+                        {
+                            matched = true;
+                        }                       
                     }
                     else { matched = false; }
-                    if (i > 1)
+                    if (!matched) { 
+                    if (i > 1 )
                     {
                         if (empties[i - 2] >= j)
                         {
@@ -427,8 +433,8 @@ public class Board
                     else { matched = false; }
                     
                 }
-                
-                
+                }
+
                 matrixBoard[j][i].setIcon("Sprites/Placeholders_Prototype/food" + iconAux.ToString());
                 matrixBoard[j][i].food.Type = iconAux;
                 matrixBoard[j][i].food.imgIcon.setX(matrixBoard[j][i].background.getX());
@@ -534,9 +540,9 @@ public class Board
                         float auxScore = 3;
                         float multiplier = 1;
                         if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
-                        if (matrixBoard[i][j].food.Type == CurrentStageData.inst().currentKaiju.prefferedFood) {
+                        if (matrixBoard[i][j].food.Type == CurrentStageData.currentKaiju.prefferedFood) {
                             auxScore = 5;
-                            CurrentStageData.inst().currentKaiju.setState(1);
+                            CurrentStageData.currentKaiju.setState(1);
                         }
                         switch (count)
                         {
@@ -582,8 +588,8 @@ public class Board
                         float auxScore = 3;
                         float multiplier = 1;
                         if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
-                        if (matrixBoard[i][j].food.Type == CurrentStageData.inst().currentKaiju.prefferedFood) { auxScore = 5;
-                            CurrentStageData.inst().currentKaiju.setState(1);
+                        if (matrixBoard[i][j].food.Type == CurrentStageData.currentKaiju.prefferedFood) { auxScore = 5;
+                            CurrentStageData.currentKaiju.setState(1);
                         }
                         switch (count)
                         {
@@ -609,7 +615,7 @@ public class Board
                 }
             }
         }
-        CurrentStageData.inst().addScore(totalScore);
+        CurrentStageData.addScore(totalScore);
     }
 
     public int boardState()

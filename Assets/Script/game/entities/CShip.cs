@@ -50,7 +50,7 @@ public class CShip : CSprite
             aSpr.setX(getX());
             aSpr.setY(getY());
             aSpr.setImage(_Sprite);
-            CSpriteManager.inst().add(aSpr);
+            CSpriteManager.add(aSpr);
             count = 0;
 
         }

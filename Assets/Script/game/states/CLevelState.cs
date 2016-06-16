@@ -11,12 +11,9 @@ public class CLevelState : CGameState
     private int current_state;
     private Board mBoard;
     private Dinosaur monster;
-    private Enemy building;
-    private CSpriteManager mSpriteManager;
-    private CurrentStageData mCurrentData;
+    private Enemy building;    
     private CText mText;
     private CText resultText;
-
     private CSprite screenDim;
 
 
@@ -34,12 +31,12 @@ public class CLevelState : CGameState
         resultText = new CText("", CText.alignment.TOP_CENTER);
         resultText.setX(0);
         resultText.setY(100);
-        mSpriteManager = new CSpriteManager();
-        mCurrentData = new CurrentStageData();
+        
+        
         mBoard.movementsLeft = 2;
         mBoard.targetScore = 110;
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
-        CurrentStageData.inst().assignData(monster, mBoard, scoreCoefficient);
+        CurrentStageData.assignData(monster, mBoard, scoreCoefficient);
         screenDim = new CSprite();
         screenDim.setSortingLayer("ScreenShade");
         screenDim.setName("Sombra");
@@ -54,7 +51,7 @@ public class CLevelState : CGameState
     override public void update()
     {
         base.update();
-        mSpriteManager.update();
+        //CSpriteManager.update();
         CMouse.update();
         mBoard.update();
         monster.update();
@@ -68,7 +65,7 @@ public class CLevelState : CGameState
             case STATE_PLAYING:
                 if (mBoard.current_state == 0)
                 {
-                    if (CurrentStageData.inst().currentKaiju.scale >= 100)
+                    if (CurrentStageData.currentKaiju.scale >= 100)
                     {
                         current_state = STATE_WIN;
                         resultText.setText("YOU WIN");
@@ -94,11 +91,12 @@ public class CLevelState : CGameState
             case STATE_WIN:
                 if (!building.building.isEnded())
                 {
-                    CurrentStageData.inst().cameraShake();
+                    CurrentStageData.cameraShake();
                 }
                 else
                      if (Camera.main.transform.position.x > 360)
                 {
+                    
                     Camera.main.transform.Translate(new Vector3(-15, 0, 0));
                 }
                 if (Camera.main.transform.position.x < 360)
@@ -108,6 +106,10 @@ public class CLevelState : CGameState
                 break;
 
             case STATE_LOSE:
+                if (CMouse.firstPress())
+                {
+                   CGame.inst().setState(new CMenuState());
+                }
                 break;
         }
 
@@ -118,7 +120,7 @@ public class CLevelState : CGameState
     override public void render()
     {
         base.render();
-        mSpriteManager.render();
+        //CSpriteManager.render();
         mBoard.render();
         screenDim.render();
         monster.render();
@@ -130,9 +132,7 @@ public class CLevelState : CGameState
 
     override public void destroy()
     {
-        base.destroy();
-        mSpriteManager.destroy();
-        mSpriteManager = null;
+        base.destroy();        
         mText.destroy();
         mText = null;
         resultText.destroy();
@@ -143,7 +143,9 @@ public class CLevelState : CGameState
         monster = null;
         building.destroy();
         building = null;
-        CurrentStageData.inst().clearData();    
+        screenDim.destroy();
+        screenDim = null;
+        CurrentStageData.clearData();    
     }
 
 }

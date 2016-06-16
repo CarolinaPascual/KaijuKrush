@@ -6,44 +6,39 @@ using UnityEngine;
 //test
 class CurrentStageData
     {
-    private static CurrentStageData mInst = null;
-
-    public float score { get; set; }    
-    public Kaiju currentKaiju { get; set; }
-    public Board currentBoard { get; set; }
-    public float growScoreRelation { get; set; }
-    private int shakeAux = 1;
+    
+     private static bool mInitialized = false;
+    public static float score { get; set; }    
+    public static Kaiju currentKaiju { get; set; }
+    public static  Board currentBoard { get; set; }
+    public static float growScoreRelation { get; set; }
+    private static int shakeAux = 1;
     
 
     public CurrentStageData()
     {
-        registerSingleton();
+        throw new UnityException("Error in CMouse(). You're not supposed to instantiate this class.");
+        
 
     }
-    public static CurrentStageData inst()
+    
+   
+    public static void init()
     {
-        return mInst;
-    }
-    private void registerSingleton()
-    {
-        if (mInst == null)
+        if (mInitialized)
         {
-            mInst = this;
+            return;
         }
-        else
-        {
-            throw new UnityException("Error: You cannot create another instance of singleton class " + this + " ");
-        }
-
+        mInitialized = true;
     }
-    public void assignData(Kaiju aKaiju, Board aBoard,float aNumber)
+    public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber)
     {
         currentBoard = aBoard;
         currentKaiju = aKaiju;
         growScoreRelation = aNumber;
     }
 
-    public void clearData()
+    public static void clearData()
     {
         score = 0;
         currentKaiju = null;
@@ -57,17 +52,13 @@ class CurrentStageData
     {       
 
     }
-    public  void destroy()
-    {
-        
-        mInst = null;
-    }
-    public void addScore(float aScore) {
+    
+    public static void addScore(float aScore) {
         score += aScore;
         currentKaiju.addGrow(aScore * growScoreRelation);
     }
 
-    public void cameraShake()
+    public static void cameraShake()
     {
         if (shakeAux == 1)
         {            
@@ -87,10 +78,16 @@ class CurrentStageData
         }
         
     }
-   
-    
 
- 
+    public static void destroy()
+    {
+        if (mInitialized)
+        {
+            mInitialized = false;
+        }
+    }
+
+
 
 }
 

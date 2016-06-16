@@ -18,7 +18,9 @@ public class CGame : MonoBehaviour
         mInstance = this;
 
         CMouse.init();
-
+        CurrentStageData.init();
+        CSpriteManager.init();
+        imgBackground = new CSprite();
         setState(new CMenuState());
         //setImage("Sprites/Placeholders_Prototype/level_Background");
     }
@@ -59,6 +61,8 @@ public class CGame : MonoBehaviour
     public void destroy()
     {
         CMouse.destroy();
+        CurrentStageData.destroy();
+        //CSpriteManager.destroy();
         if (mState != null)
         {
             mState.destroy();
@@ -80,7 +84,7 @@ public class CGame : MonoBehaviour
     }
     public void  setImage(string img)
     {
-        imgBackground = new CSprite();
+        
         imgBackground.setImage(Resources.Load<Sprite>(img));
         imgBackground.setX(351);
         imgBackground.setY(830);
@@ -90,6 +94,9 @@ public class CGame : MonoBehaviour
     {
         return mState;
     }
-
+    public CSprite getBakcground()
+    {
+        return imgBackground;
+    }
 
 }

@@ -12,8 +12,7 @@ class Dinosaur : Kaiju
     private const int STATE_LOSE = 2;
     private const int STATE_SKILL = 3;
     private const int STATE_WIN = 4;
-    private Sprite[] stage2Imgs;
-    private Sprite[] stage3Imgs;
+    
 
 
     public Dinosaur(int aStage,int aFirstBreak,int aSecondBreak)

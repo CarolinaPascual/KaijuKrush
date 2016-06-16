@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class CManager
 {
-    private List<CGameObject> mArray;
+    private static List<CGameObject> mArray;
 
     public CManager()
     {
         mArray = new List<CGameObject>();
 
     }
-    public void add(CGameObject aGameObject)
+    public static void add(CGameObject aGameObject)
     {
         mArray.Add(aGameObject);
     }

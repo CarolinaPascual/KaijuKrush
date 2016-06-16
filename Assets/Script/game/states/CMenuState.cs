@@ -8,8 +8,9 @@ using System.Text;
     {
     public CMenuState()
     {
-        CGame.inst().setImage("Sprites/Placeholders_Prototype/menu_hold");
-        
+        CGame.inst().setImage("Sprites/Placeholders_Prototype/Main-Menu-PH");
+        CGame.inst().getBakcground().setX(0);
+        CGame.inst().getBakcground().setY(0);
         
     }
 

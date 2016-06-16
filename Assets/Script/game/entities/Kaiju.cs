@@ -16,8 +16,9 @@ public class Kaiju
     public int currentState { get; set; }
     public int firstBreakpoint { get; set; }
     public int secondBreakpoint { get; set; }
-    
-    
+    public Sprite[] stage2Imgs { get; set; }
+    public Sprite[] stage3Imgs { get; set; }
+
 
     public Kaiju()
     {
@@ -34,7 +35,8 @@ public class Kaiju
     }
     public void destroy()
     {
-
+        beast.destroy();
+        beast = null;
     }
     virtual public void setState(int aState)
     {
@@ -50,7 +52,7 @@ public class Kaiju
     }
     public void firstPower()
     {
-        List<List<Tile>> mBoard = CurrentStageData.inst().currentBoard.matrixBoard;
+        List<List<Tile>> mBoard = CurrentStageData.currentBoard.matrixBoard;
         for (int i = 0; i < mBoard.Count(); i++)
         {
             for (int j = 0; j < mBoard[i].Count(); j++)
@@ -61,9 +63,9 @@ public class Kaiju
                 }
             }
         }
-        CurrentStageData.inst().currentBoard.cascadeBoard1();
-        CurrentStageData.inst().currentBoard.fillSpaces();
-        CurrentStageData.inst().currentBoard.current_state = 3;
+        CurrentStageData.currentBoard.cascadeBoard1();
+        CurrentStageData.currentBoard.fillSpaces();
+        CurrentStageData.currentBoard.current_state = 3;
     }
 }
 //}

@@ -28,6 +28,7 @@ public class token
         matched = false;
         cascadeAmount = 0;
         current_state = STATE_NORMAL;
+        Type = -1;
     }
     public void setIcon(string Aicon)
     {
@@ -40,7 +41,7 @@ public class token
         {
             if (imgIcon.getX() != finalX | imgIcon.getY() != finalY)
             {
-                if (imgIcon.getY() > CurrentStageData.inst().currentBoard.getUpBorder())
+                if (imgIcon.getY() > CurrentStageData.currentBoard.getUpBorder())
                 {
                     imgIcon.setVisible(true);
                 }

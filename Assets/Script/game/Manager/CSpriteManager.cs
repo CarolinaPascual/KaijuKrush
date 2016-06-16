@@ -8,26 +8,25 @@ using UnityEngine;
 public class CSpriteManager : CManager
 {
     private static CSpriteManager mInst = null;
+    static private bool mInitialized = false;
     public CSpriteManager()
     {
-        registerSingleton();
+        throw new UnityException("Error in CMouse(). You're not supposed to instantiate this class.");
 
     }
     public static CSpriteManager inst()
     {
         return mInst;
     }
-    private void registerSingleton()
-    {
-        if (mInst == null)
-        {
-            mInst = this;
-        }
-        else
-        {
-            throw new UnityException("Error: You cannot create another instance of singleton class " + this + " ");
-        }
+    
 
+     public static void init()
+    {
+        if (mInitialized)
+        {
+            return;
+        }
+        mInitialized = true;
     }
 
     public override void update()
@@ -42,7 +41,10 @@ public class CSpriteManager : CManager
     public override void destroy()
     {
         base.destroy();
-        mInst = null;
+        if (mInitialized)
+        {
+            mInitialized = false;
+        }
     }
 
 }
