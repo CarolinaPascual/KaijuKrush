@@ -100,15 +100,17 @@ public class CLevelState : CGameState
                     CurrentStageData.cameraShake();
                 }
                 else
+                {
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
                     screenDim.setX(0);
                     screenDim.setY(0);
                     nextScreen.setVisible(true);
-                if (CMouse.firstPress())
-                {
-                    CGame.inst().setState(new CMenuState());
-                }
 
+                    if (CMouse.firstPress())
+                    {
+                        CGame.inst().setState(new CMenuState());
+                    }
+                
                 if (Camera.main.transform.position.x > 360)
                 {
                     
@@ -117,6 +119,7 @@ public class CLevelState : CGameState
                 if (Camera.main.transform.position.x < 360)
                 {
                     Camera.main.transform.Translate(new Vector3(15, 0, 0));
+                }
                 }
                 break;
 

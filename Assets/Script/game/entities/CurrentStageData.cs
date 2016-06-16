@@ -7,12 +7,12 @@ using UnityEngine;
 class CurrentStageData
     {
     
-     private static bool mInitialized = false;
+    private static bool mInitialized = false;
     public static float score { get; set; }    
     public static Kaiju currentKaiju { get; set; }
     public static  Board currentBoard { get; set; }
     public static float growScoreRelation { get; set; }
-    private static int shakeAux = 1;
+    private static int shakeAux;
     
 
     public CurrentStageData()
@@ -30,6 +30,7 @@ class CurrentStageData
             return;
         }
         mInitialized = true;
+        shakeAux = 1;
     }
     public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber)
     {
