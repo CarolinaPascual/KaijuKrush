@@ -15,7 +15,7 @@ public class CLevelState : CGameState
     private CText mText;
     private CText resultText;
     private CSprite screenDim;
-
+    private CText nextScreen;
 
 
 
@@ -31,9 +31,13 @@ public class CLevelState : CGameState
         resultText = new CText("", CText.alignment.TOP_CENTER);
         resultText.setX(0);
         resultText.setY(100);
+        nextScreen = new CText("Back to Menu",CText.alignment.CENTER,70);
+        nextScreen.setX(CGameConstants.SCREEN_WIDTH / 2);
+        nextScreen.setY(CGameConstants.SCREEN_HEIGHT / 2);
+        nextScreen.setVisible(false);
         
         
-        mBoard.movementsLeft = 2;
+        mBoard.movementsLeft = 15;
         mBoard.targetScore = 110;
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
         CurrentStageData.assignData(monster, mBoard, scoreCoefficient);
@@ -59,6 +63,7 @@ public class CLevelState : CGameState
         screenDim.update();
         mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());
         mText.update();
+        nextScreen.update();
         resultText.update();
         switch (current_state)
         {
@@ -80,6 +85,7 @@ public class CLevelState : CGameState
                         screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
                         screenDim.setX(0);
                         screenDim.setY(0);
+                        nextScreen.setVisible(true);
                         current_state = STATE_LOSE;
                         resultText.setText("YOU LOSE");
                         monster.setState(2);
@@ -94,7 +100,16 @@ public class CLevelState : CGameState
                     CurrentStageData.cameraShake();
                 }
                 else
-                     if (Camera.main.transform.position.x > 360)
+                    screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
+                    screenDim.setX(0);
+                    screenDim.setY(0);
+                    nextScreen.setVisible(true);
+                if (CMouse.firstPress())
+                {
+                    CGame.inst().setState(new CMenuState());
+                }
+
+                if (Camera.main.transform.position.x > 360)
                 {
                     
                     Camera.main.transform.Translate(new Vector3(-15, 0, 0));
@@ -125,7 +140,7 @@ public class CLevelState : CGameState
         screenDim.render();
         monster.render();
         building.render();
-
+        nextScreen.render();
         mText.render();
         resultText.render();
     }
@@ -145,6 +160,8 @@ public class CLevelState : CGameState
         building = null;
         screenDim.destroy();
         screenDim = null;
+        nextScreen.destroy();
+        nextScreen = null;
         CurrentStageData.clearData();    
     }
 
