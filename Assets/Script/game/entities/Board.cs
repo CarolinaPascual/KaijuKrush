@@ -35,13 +35,13 @@ public class Board
             {
                 if ((j + i) % 2 == 0)
                 {
-                    Tile aux1 = new Tile("Sprites/Placeholders_Prototype/tile_Unselected01");
+                    Tile aux1 = new Tile("Sprites/tile_Unselected01");
                     matrixBoard[i].Add(aux1);
 
                 }
                 else
                 {
-                    Tile aux1 = new Tile("Sprites/Placeholders_Prototype/tile_Unselected01");
+                    Tile aux1 = new Tile("Sprites/tile_Unselected01");
                     matrixBoard[i].Add(aux1);
                 }
 
@@ -76,7 +76,7 @@ public class Board
                     invalidIcon = checkMatchCreate(iconAux, i, j);
                     //invalidIcon = false;
                 }
-                matrixBoard[i][j].setIcon("Sprites/Placeholders_Prototype/food" + iconAux.ToString());
+                matrixBoard[i][j].setIcon("Sprites/food" + iconAux.ToString());
                 matrixBoard[i][j].food.Type = iconAux;
                 matrixBoard[i][j].food.imgIcon.setX(matrixBoard[i][j].background.getX());
                 matrixBoard[i][j].food.imgIcon.setY(matrixBoard[i][j].background.getY());
@@ -370,7 +370,7 @@ public class Board
         if (cascadeAmount > 0 && matrixBoard[y][x].food.Type != -1)
         {
             matrixBoard[y + cascadeAmount][x].food.Type = matrixBoard[y][x].food.Type;
-            matrixBoard[y + cascadeAmount][x].setIcon("Sprites/Placeholders_Prototype/food" + matrixBoard[y][x].food.Type);
+            matrixBoard[y + cascadeAmount][x].setIcon("Sprites/food" + matrixBoard[y][x].food.Type);
 
             matrixBoard[y + cascadeAmount][x].food.imgIcon.setX(matrixBoard[y + cascadeAmount][x].background.getX());
             matrixBoard[y + cascadeAmount][x].food.imgIcon.setY(matrixBoard[y + cascadeAmount][x].background.getY());
@@ -435,7 +435,7 @@ public class Board
                 }
                 }
 
-                matrixBoard[j][i].setIcon("Sprites/Placeholders_Prototype/food" + iconAux.ToString());
+                matrixBoard[j][i].setIcon("Sprites/food" + iconAux.ToString());
                 matrixBoard[j][i].food.Type = iconAux;
                 matrixBoard[j][i].food.imgIcon.setX(matrixBoard[j][i].background.getX());
                 float y = matrixBoard[j][i].background.getY() - matrixBoard[j][i].background.getHeight() * empties[i];

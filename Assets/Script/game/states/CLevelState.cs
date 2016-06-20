@@ -82,7 +82,7 @@ public class CLevelState : CGameState
                     {
                         
                                                 
-                        screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
+                        screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                         screenDim.setX(0);
                         screenDim.setY(0);
                         nextScreen.setVisible(true);
@@ -101,7 +101,7 @@ public class CLevelState : CGameState
                 }
                 else
                 {
-                    screenDim.setImage(Resources.Load<Sprite>("Sprites/Placeholders_Prototype/screenShade"));
+                    screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                     screenDim.setX(0);
                     screenDim.setY(0);
                     nextScreen.setVisible(true);

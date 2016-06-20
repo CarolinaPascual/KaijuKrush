@@ -8,6 +8,12 @@ using UnityEngine;
 //{
 public class Kaiju
 {
+    protected const int STATE_NORMAL = 0;
+    protected const int STATE_EAT = 1;
+    protected const int STATE_LOSE = 2;
+    protected const int STATE_SKILL = 3;
+    protected const int STATE_WIN = 4;
+
     public CAnimatedSprite beast { get; set; }
     public int stage { get; set; }
     public int prefferedFood { get; set; }    

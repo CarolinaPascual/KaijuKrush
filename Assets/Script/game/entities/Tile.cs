@@ -35,14 +35,14 @@ public class Tile
     }
     public void select()
     {
-        string spriteName = "Sprites/Placeholders_Prototype/tile_Selected01";
+        string spriteName = "Sprites/tile_Selected01";
         background.setImage(Resources.Load<Sprite>(spriteName));
         background.setSortingLayer("Background");
         selected = true;
     }
     public void deselect()
     {
-        string spriteName = "Sprites/Placeholders_Prototype/tile_Unselected01";
+        string spriteName = "Sprites/tile_Unselected01";
         background.setImage(Resources.Load<Sprite>(spriteName));
         background.setSortingLayer("Background");
         selected = false;

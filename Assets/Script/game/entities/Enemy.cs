@@ -18,7 +18,7 @@ public class Enemy
     {
         building = new CAnimatedSprite();
         building.setName("Building");
-        building.setFrames(Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Building"));
+        building.setFrames(Resources.LoadAll<Sprite>("Sprites/Building"));
         setState(STATE_NORMAL);
         building.setY(535);
         building.setX((CGameConstants.SCREEN_WIDTH / 4) * 3 + 30);

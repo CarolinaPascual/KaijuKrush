@@ -8,7 +8,7 @@ using System.Text;
     {
     public CMenuState()
     {
-        CGame.inst().setImage("Sprites/Placeholders_Prototype/Main-Menu-PH");
+        CGame.inst().setImage("Sprites/Main-Menu-PH");
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);
         
@@ -24,7 +24,7 @@ using System.Text;
         CMouse.update();
         if (CMouse.firstPress())
         {
-            CGame.inst().setImage("Sprites/Placeholders_Prototype/level_Background");
+            CGame.inst().setImage("Sprites/level_Background");
             CGame.inst().setState(new CLevelState());
             
         }

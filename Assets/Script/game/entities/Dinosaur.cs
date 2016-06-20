@@ -7,11 +7,7 @@ using UnityEngine;
 
 class Dinosaur : Kaiju
 {
-    private const int STATE_NORMAL = 0;
-    private const int STATE_EAT = 1;
-    private const int STATE_LOSE = 2;
-    private const int STATE_SKILL = 3;
-    private const int STATE_WIN = 4;
+    
     
 
 
@@ -23,9 +19,9 @@ class Dinosaur : Kaiju
         secondBreakpoint = aSecondBreak;
         beast = new CAnimatedSprite();
         beast.setName("Dinosaur");
-        beast.setFrames(Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/00" + stage));
-        stage2Imgs = Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/002");
-        stage3Imgs = Resources.LoadAll<Sprite>("Sprites/Placeholders_Prototype/Kaijus/Dino/003");
+        beast.setFrames(Resources.LoadAll<Sprite>("Sprites/Kaijus/Dino/00" + stage));
+        stage2Imgs = Resources.LoadAll<Sprite>("Sprites/Kaijus/Dino/002");
+        stage3Imgs = Resources.LoadAll<Sprite>("Sprites/Kaijus/Dino/003");
 
         setState(STATE_NORMAL);
         beast.setScale(scale);
