@@ -34,6 +34,28 @@ public class Kaiju
     virtual public void update()
     {
         beast.update();
+        if (currentState == STATE_EAT | currentState == STATE_WIN | currentState == STATE_SKILL)
+        {
+            if (beast.isEnded())
+            {
+                setState(STATE_NORMAL);
+            }
+        }
+
+
+        if (growCounter > 0 & scale <= 110)
+        {
+            float aux = growCounter / 10;
+            scale += aux;
+            growCounter -= aux;
+            beast.setScale(scale);
+
+        }
+        if ((stage == 1 & scale >= firstBreakpoint) | (stage == 2 & scale >= secondBreakpoint))
+        {
+            growStage();
+        }
+
     }
     public void render()
     {
@@ -72,6 +94,19 @@ public class Kaiju
         CurrentStageData.currentBoard.cascadeBoard1();
         CurrentStageData.currentBoard.fillSpaces();
         CurrentStageData.currentBoard.current_state = 3;
+    }
+    public void growStage()
+    {
+        stage++;
+        if (stage == 2)
+        {
+            beast.setFrames(stage2Imgs);
+        }
+        else if (stage == 3)
+        {
+            beast.setFrames(stage3Imgs);
+        }
+
     }
 }
 //}

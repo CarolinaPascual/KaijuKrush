@@ -85,10 +85,13 @@
     <Compile Include="Assets\Script\game\entities\Board.cs" />
     <Compile Include="Assets\Script\game\entities\CPlayer.cs" />
     <Compile Include="Assets\Script\game\entities\CShip.cs" />
+    <Compile Include="Assets\Script\game\entities\Cinfo.cs" />
     <Compile Include="Assets\Script\game\entities\CurrentStageData.cs" />
     <Compile Include="Assets\Script\game\entities\Dinosaur.cs" />
     <Compile Include="Assets\Script\game\entities\Enemy.cs" />
     <Compile Include="Assets\Script\game\entities\Kaiju.cs" />
+    <Compile Include="Assets\Script\game\entities\Kong.cs" />
+    <Compile Include="Assets\Script\game\entities\LevelsInfo.cs" />
     <Compile Include="Assets\Script\game\entities\Tile.cs" />
     <Compile Include="Assets\Script\game\entities\token.cs" />
     <Compile Include="Assets\Script\game\states\CLevelState.cs" />

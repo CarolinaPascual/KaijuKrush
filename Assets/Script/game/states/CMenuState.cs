@@ -25,7 +25,7 @@ using System.Text;
         if (CMouse.firstPress())
         {
             CGame.inst().setImage("Sprites/level_Background");
-            CGame.inst().setState(new CLevelState());
+            CGame.inst().setState(new CLevelState(1));
             
         }
     }

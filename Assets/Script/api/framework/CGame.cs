@@ -20,6 +20,7 @@ public class CGame : MonoBehaviour
         CMouse.init();
         CurrentStageData.init();
         CSpriteManager.init();
+        LevelsInfo.init();
         imgBackground = new CSprite();
         setState(new CMenuState());
         //setImage("Sprites/Placeholders_Prototype/level_Background");

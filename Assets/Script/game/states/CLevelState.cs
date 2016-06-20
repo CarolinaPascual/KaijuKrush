@@ -10,7 +10,7 @@ public class CLevelState : CGameState
     //private CPlayer mPlayer;
     private int current_state;
     private Board mBoard;
-    private Dinosaur monster;
+    private Kaiju monster;
     private Enemy building;    
     private CText mText;
     private CText resultText;
@@ -19,11 +19,24 @@ public class CLevelState : CGameState
 
 
 
-    public CLevelState()
+    public CLevelState(int stageNumber)
     {
+        CInfo stageInfo = LevelsInfo.getLevel(stageNumber);
+        switch (stageInfo.Kaiju)
+        {
+            case 1:
+                monster = new Dinosaur(stageInfo.startStage,stageInfo.firstStage,stageInfo.secondStage);
+                break;
+            case 2:
+                monster = new Kong(stageInfo.startStage, stageInfo.firstStage, stageInfo.secondStage);
+                break;
+            case 3:
+               // monster = new Kraken(stageInfo.startStage, stageInfo.firstStage, stageInfo.secondStage);
+                break;
+        }
         current_state = STATE_PLAYING;
         mBoard = new Board();
-        monster = new Dinosaur(1, 53, 76);
+        //monster = new Kong(1, 53, 76);  
         building = new Enemy();
         mText = new CText("TEST", CText.alignment.TOP_CENTER);
         mText.setX(0);
@@ -37,8 +50,8 @@ public class CLevelState : CGameState
         nextScreen.setVisible(false);
         
         
-        mBoard.movementsLeft = 15;
-        mBoard.targetScore = 110;
+        mBoard.movementsLeft = stageInfo.movements; // MOVE TO CLASS
+        mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
         CurrentStageData.assignData(monster, mBoard, scoreCoefficient);
         screenDim = new CSprite();
@@ -108,7 +121,9 @@ public class CLevelState : CGameState
 
                     if (CMouse.firstPress())
                     {
-                        CGame.inst().setState(new CMenuState());
+                        CurrentStageData.clearData();
+                        CGame.inst().setImage("Sprites/level_Background");
+                        CGame.inst().setState(new CLevelState(2));
                     }
                 
                 if (Camera.main.transform.position.x > 360)
@@ -165,7 +180,7 @@ public class CLevelState : CGameState
         screenDim = null;
         nextScreen.destroy();
         nextScreen = null;
-        CurrentStageData.clearData();    
+           
     }
 
 }

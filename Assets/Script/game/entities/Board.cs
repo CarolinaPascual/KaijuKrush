@@ -520,17 +520,19 @@ public class Board
     public void countScore()
     {
         float totalScore = 0;
+        int lastType;
         //recorrida por fila
         for (int i = 0; i < matrixBoard.Count(); i++)
         {
             for (int j = 0; j < matrixBoard[i].Count(); j++)
             {
                 int count = 1;
-
+                lastType = -1;
                 if (matrixBoard[i][j].food.matched & j+1 <matrixBoard[i].Count())
-                {
+                {                    
                     while (matrixBoard[i][j+1].food.Type == matrixBoard[i][j].food.Type)
                     {
+                        lastType = matrixBoard[i][j].food.Type;
                         count++;
                         j++;
                         if (j >= matrixBoard[i].Count()-1) { break;}
@@ -539,9 +541,9 @@ public class Board
                     {
                         float auxScore = 3;
                         float multiplier = 1;
-                        if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
-                        if (matrixBoard[i][j].food.Type == CurrentStageData.currentKaiju.prefferedFood) {
-                            auxScore = 5;
+                        if (lastType == 3) { auxScore = 1; }
+                        if (lastType == CurrentStageData.currentKaiju.prefferedFood) {
+                            auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
                         }
                         switch (count)
@@ -574,11 +576,12 @@ public class Board
             for (int i = 0; i < matrixBoard.Count(); i++)
             {
                 int count = 1;
-
+                lastType = -1;
                 if (matrixBoard[i][j].food.matched & i + 1 < matrixBoard.Count())
                 {
                     while (matrixBoard[i+1][j].food.Type == matrixBoard[i][j].food.Type)
                     {
+                        lastType = matrixBoard[i][j].food.Type;
                         count++;
                         i++;
                         if (i >= matrixBoard.Count() - 1) { break; }
@@ -587,8 +590,10 @@ public class Board
                     {
                         float auxScore = 3;
                         float multiplier = 1;
-                        if (matrixBoard[i][j].food.Type == 3) { auxScore = 1; }
-                        if (matrixBoard[i][j].food.Type == CurrentStageData.currentKaiju.prefferedFood) { auxScore = 5;
+                        if (lastType == 3) { auxScore = 1; }
+                        if (lastType == CurrentStageData.currentKaiju.prefferedFood)
+                        {
+                            auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
                         }
                         switch (count)
