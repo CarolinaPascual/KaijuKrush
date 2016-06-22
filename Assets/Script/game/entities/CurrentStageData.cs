@@ -13,7 +13,7 @@ class CurrentStageData
     public static  Board currentBoard { get; set; }
     public static float growScoreRelation { get; set; }
     private static int shakeAux;
-    
+    public static int difficulty { get; set; }
 
     public CurrentStageData()
     {
@@ -32,11 +32,13 @@ class CurrentStageData
         mInitialized = true;
         shakeAux = 1;
     }
-    public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber)
+    public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber,int aDif)
     {
         currentBoard = aBoard;
         currentKaiju = aKaiju;
         growScoreRelation = aNumber;
+        difficulty = aDif;
+       
     }
 
     public static void clearData()
@@ -44,6 +46,7 @@ class CurrentStageData
         score = 0;
         currentKaiju = null;
         currentBoard = null;
+        difficulty = 0;
     }
 
     public void update()

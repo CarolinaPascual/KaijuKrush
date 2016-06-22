@@ -53,7 +53,7 @@ public class CLevelState : CGameState
         mBoard.movementsLeft = stageInfo.movements; // MOVE TO CLASS
         mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
-        CurrentStageData.assignData(monster, mBoard, scoreCoefficient);
+        CurrentStageData.assignData(monster, mBoard, scoreCoefficient,stageInfo.dif);
         screenDim = new CSprite();
         screenDim.setSortingLayer("ScreenShade");
         screenDim.setName("Sombra");

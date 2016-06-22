@@ -43,7 +43,7 @@ public class Kaiju
         }
 
 
-        if (growCounter > 0 & scale <= 110)
+        if (growCounter != 0 & scale <= 110)
         {
             float aux = growCounter / 10;
             scale += aux;

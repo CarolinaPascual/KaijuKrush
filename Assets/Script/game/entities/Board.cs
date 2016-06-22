@@ -60,7 +60,7 @@ public class Board
         fillSpaces();
 
     }
-
+    //DEPRECATED
     public void fillBoard()
     {
         System.Random rng = new System.Random();
@@ -73,6 +73,8 @@ public class Board
                 while (invalidIcon)
                 {
                     iconAux = rng.Next(0, 4);
+                    int auxMissile = rng.Next(1, 11);
+                    
                     invalidIcon = checkMatchCreate(iconAux, i, j);
                     //invalidIcon = false;
                 }
@@ -383,6 +385,7 @@ public class Board
     public void fillSpaces()
     {
         System.Random rng = new System.Random();
+        
         int[] empties = new int[boardWidth];
 
         for (int y = 0; y < matrixBoard.Count(); y++)
@@ -401,9 +404,15 @@ public class Board
             {
                 bool matched = true;
                 int iconAux = 0;
+                int auxMissile = 0;
                 while (matched)
                 {
                     iconAux = rng.Next(0, 4);
+                    auxMissile = rng.Next(1, 11);
+                    if (auxMissile <= CurrentStageData.difficulty)
+                    {
+                        iconAux = 4;
+                    }
                     if (j>1){
                         if (matrixBoard[j-2][i].food.Type != iconAux)
                         {
@@ -545,6 +554,9 @@ public class Board
                         if (lastType == CurrentStageData.currentKaiju.prefferedFood) {
                             auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
+                        }else if (lastType == 4)
+                        {
+                            auxScore = -3;
                         }
                         switch (count)
                         {
@@ -595,6 +607,10 @@ public class Board
                         {
                             auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
+                        }
+                        else if (lastType == 4)
+                        {
+                            auxScore = -3;
                         }
                         switch (count)
                         {

@@ -44,8 +44,8 @@ public class LevelsInfo
     {
         // Kaiju type 1 Dinosaur, type 2 kong, type 3 Kraken
         Levels = new List<CInfo>();
-        Levels.Add(new CInfo(1, 1, 53, 76, 110, 15));
-        Levels.Add(new CInfo(2, 1, 53, 76, 130, 15));
+        Levels.Add(new CInfo(1, 1, 53, 76, 110, 15,0));
+        Levels.Add(new CInfo(2, 1, 53, 76, 130, 15,1));
             
     }
 
