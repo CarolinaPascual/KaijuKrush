@@ -14,6 +14,7 @@ class CurrentStageData
     public static float growScoreRelation { get; set; }
     private static int shakeAux;
     public static int difficulty { get; set; }
+    public static int currentStage { get; set; }
 
     public CurrentStageData()
     {

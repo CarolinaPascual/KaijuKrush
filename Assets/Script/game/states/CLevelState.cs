@@ -22,6 +22,7 @@ public class CLevelState : CGameState
     public CLevelState(int stageNumber)
     {
         CInfo stageInfo = LevelsInfo.getLevel(stageNumber);
+        CurrentStageData.currentStage = stageNumber;
         switch (stageInfo.Kaiju)
         {
             case 1:
@@ -117,16 +118,22 @@ public class CLevelState : CGameState
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                     screenDim.setX(0);
                     screenDim.setY(0);
+                    nextScreen.setText("Next Level");
                     nextScreen.setVisible(true);
 
                     if (CMouse.firstPress())
                     {
                         CurrentStageData.clearData();
                         CGame.inst().setImage("Sprites/level_Background");
-                        CGame.inst().setState(new CLevelState(2));
+                        if (CurrentStageData.currentStage>= LevelsInfo.getLevelsAmount())
+                        {
+                            CGame.inst().setState(new CMenuState());
+                        }else { 
+                        CGame.inst().setState(new CLevelState(CurrentStageData.currentStage+1));
                     }
-                
-                if (Camera.main.transform.position.x > 360)
+                    }
+
+                    if (Camera.main.transform.position.x > 360)
                 {
                     
                     Camera.main.transform.Translate(new Vector3(-15, 0, 0));
