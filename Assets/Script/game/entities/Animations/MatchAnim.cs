@@ -18,7 +18,7 @@ class MatchAnim:CSprite
         setState(STATE_INCREASE);        
         scale = 100;
         setSortingLayer("Icons");
-        setAlpha(1f);
+        setAlpha(0.5f);
         
     }
     public override void update()
@@ -27,7 +27,7 @@ class MatchAnim:CSprite
         switch (getState())
         {
             case STATE_INCREASE:
-                scale += 5;
+                scale += 15;
                 setScale(scale);
                 if (scale >= 140)
                 {
@@ -36,7 +36,7 @@ class MatchAnim:CSprite
                 break;
 
             case STATE_REDUCE:
-                scale -= 5;
+                scale -= 15;
                 setScale(scale);
                 if (scale <= 50)
                 {

@@ -59,7 +59,7 @@ public class CLevelState : CGameState
         screenDim = new CSprite();
         screenDim.setSortingLayer("ScreenShade");
         screenDim.setName("Sombra");
-        mSpriteManager = new CSpriteManager();
+        
 
     }
 
@@ -81,7 +81,7 @@ public class CLevelState : CGameState
         mText.update();
         nextScreen.update();
         resultText.update();
-        mSpriteManager.update();
+        
         switch (current_state)
         {
             case STATE_PLAYING:
@@ -171,7 +171,7 @@ public class CLevelState : CGameState
         nextScreen.render();
         mText.render();
         resultText.render();
-        mSpriteManager.render();
+        
     }
 
     override public void destroy()
@@ -191,8 +191,7 @@ public class CLevelState : CGameState
         screenDim = null;
         nextScreen.destroy();
         nextScreen = null;
-        mSpriteManager.destroy();
-        mSpriteManager = null;
+        
            
     }
 

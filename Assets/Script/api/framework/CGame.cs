@@ -6,8 +6,8 @@ public class CGame : MonoBehaviour
     static private CGame mInstance;
     private CGameState mState;
     private CSprite imgBackground;
-   
-    
+    private CSpriteManager mSpriteManager;
+
     void Awake()
     {
         if (mInstance != null)
@@ -22,6 +22,7 @@ public class CGame : MonoBehaviour
         LevelsInfo.init();
         imgBackground = new CSprite();
         setState(new CMenuState());
+        mSpriteManager = new CSpriteManager();
         //setImage("Sprites/Placeholders_Prototype/level_Background");
     }
     static public CGame inst()
@@ -50,12 +51,14 @@ public class CGame : MonoBehaviour
         CMouse.update();
         imgBackground.update();
         mState.update();
+        mSpriteManager.update();
     }
 
     private void render()
     {
         imgBackground.render();
         mState.render();
+        mSpriteManager.render();
     }
 
     public void destroy()
