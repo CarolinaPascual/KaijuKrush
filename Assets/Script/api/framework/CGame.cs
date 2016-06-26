@@ -6,7 +6,7 @@ public class CGame : MonoBehaviour
     static private CGame mInstance;
     private CGameState mState;
     private CSprite imgBackground;
-
+   
     
     void Awake()
     {
@@ -18,8 +18,7 @@ public class CGame : MonoBehaviour
         mInstance = this;
 
         CMouse.init();
-        CurrentStageData.init();
-        CSpriteManager.init();
+        CurrentStageData.init();        
         LevelsInfo.init();
         imgBackground = new CSprite();
         setState(new CMenuState());

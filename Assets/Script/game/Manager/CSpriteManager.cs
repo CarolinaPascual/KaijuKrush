@@ -8,44 +8,43 @@ using UnityEngine;
 public class CSpriteManager : CManager
 {
     private static CSpriteManager mInst = null;
-    static private bool mInitialized = false;
+
     public CSpriteManager()
     {
-        throw new UnityException("Error in CMouse(). You're not supposed to instantiate this class.");
-
+        registerSingleton();
     }
+
     public static CSpriteManager inst()
     {
         return mInst;
     }
-    
 
-     public static void init()
+    private void registerSingleton()
     {
-        if (mInitialized)
+        if (mInst == null)
         {
-            return;
+            mInst = this;
         }
-        mInitialized = true;
+        else
+        {
+            throw new UnityException("ERROR: Cannot create another instance of singleton class CEnemyManager.");
+        }
     }
 
-    public override void update()
+    override public void update()
     {
         base.update();
     }
-    public override void render()
+
+    override public void render()
     {
         base.render();
-
     }
-    public override void destroy()
+
+    override public void destroy()
     {
         base.destroy();
-        if (mInitialized)
-        {
-            mInitialized = false;
-        }
+        mInst = null;
     }
-
 }
 

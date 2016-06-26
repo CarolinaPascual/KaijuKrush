@@ -6,11 +6,14 @@ using System.Text;
 
     class CMenuState:CGameState
     {
+    private CSpriteManager mSpriteManager;
+
     public CMenuState()
     {
         CGame.inst().setImage("Sprites/Main-Menu-PH");
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);
+        mSpriteManager = new CSpriteManager();
         
     }
 
@@ -26,18 +29,20 @@ using System.Text;
         {
             CGame.inst().setImage("Sprites/level_Background");
             CGame.inst().setState(new CLevelState(1));
-            
+            return;
         }
+        mSpriteManager.update();
     }
     override public void render()
     {
         base.render();
-        
+        mSpriteManager.render();
     }
     override public void destroy()
     {
         base.destroy();
-      
+        mSpriteManager.destroy();
+        mSpriteManager = null;
 
     }
 }

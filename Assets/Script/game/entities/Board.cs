@@ -315,6 +315,8 @@ public class Board
             {
                 if (matrixBoard[i][j].food.matched == true)
                 {
+                    MatchAnim matched = new MatchAnim(matrixBoard[i][j].food.Type, matrixBoard[i][j].background.getX(), matrixBoard[i][j].background.getY());
+                    CSpriteManager.inst().add(matched);
                     matrixBoard[i][j].clearFood();
                     for (int y = i - 1; y >= 0; y--)
                     {

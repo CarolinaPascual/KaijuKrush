@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -73,6 +75,7 @@
     <Compile Include="Assets\Script\api\framework\CGameState.cs" />
     <Compile Include="Assets\Script\api\input\CKeyboard.cs" />
     <Compile Include="Assets\Script\api\input\CMouse.cs" />
+    <Compile Include="Assets\Script\api\math\CMath.cs" />
     <Compile Include="Assets\Script\api\sprites\CAnim.cs" />
     <Compile Include="Assets\Script\api\sprites\CAnimatedSprite.cs" />
     <Compile Include="Assets\Script\api\sprites\CGameObject.cs" />
@@ -80,11 +83,11 @@
     <Compile Include="Assets\Script\api\sprites\CSprite.cs" />
     <Compile Include="Assets\Script\api\sprites\CText.cs" />
     <Compile Include="Assets\Script\game\CGameConstants.cs" />
+    <Compile Include="Assets\Script\game\entities\Animations\MatchAnim.cs" />
     <Compile Include="Assets\Script\game\Manager\CManager.cs" />
     <Compile Include="Assets\Script\game\Manager\CSpriteManager.cs" />
     <Compile Include="Assets\Script\game\entities\Board.cs" />
     <Compile Include="Assets\Script\game\entities\CPlayer.cs" />
-    <Compile Include="Assets\Script\game\entities\CShip.cs" />
     <Compile Include="Assets\Script\game\entities\Cinfo.cs" />
     <Compile Include="Assets\Script\game\entities\CurrentStageData.cs" />
     <Compile Include="Assets\Script\game\entities\Dinosaur.cs" />

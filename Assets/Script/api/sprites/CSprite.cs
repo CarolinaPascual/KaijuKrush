@@ -15,6 +15,7 @@ public class CSprite : CGameObject
         mSpriteRenderer = mSprite.AddComponent<SpriteRenderer>();
 
         mTransform = mSprite.transform;
+        setRadius(getWidth() / 2);
     }
 
     override public void update()
@@ -67,7 +68,7 @@ public class CSprite : CGameObject
     {
         Color color = mSpriteRenderer.material.color;
         mSpriteRenderer.material.color = new Color(color.r, color.g, color.b, alpha);
-
+        
     }
     public float getAlpha()
     {
@@ -90,4 +91,6 @@ public class CSprite : CGameObject
         float scale = aScale / 100;
         mSprite.transform.localScale = new Vector3(scale, scale, scale);        
     }
+
+    
 }

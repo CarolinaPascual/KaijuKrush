@@ -11,7 +11,7 @@ public class CGameObject
 
     private int mState = 0;
     private float mTimeState = 0.0f;
-
+    private float mRadius = 100;
     
 
     public CGameObject()
@@ -151,4 +151,25 @@ public class CGameObject
     {
         return new Vector3(getX(), getY());
     }
+    public void setRadius(float aRadius)
+    {
+        mRadius = aRadius;
+    }
+
+    public float getRadius()
+    {
+        return mRadius;
+    }
+    public bool collides(CGameObject aGameObject)
+    {
+        if (CMath.dist(getX(), getY(), aGameObject.getX(), aGameObject.getY()) < (getRadius() + aGameObject.getRadius()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+   
 }

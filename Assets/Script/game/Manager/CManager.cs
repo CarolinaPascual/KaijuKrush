@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class CManager
 {
-    private static List<CGameObject> mArray;
+    private List<CGameObject> mArray;
 
     public CManager()
     {
         mArray = new List<CGameObject>();
 
     }
-    public static void add(CGameObject aGameObject)
+    public void add(CGameObject aGameObject)
     {
         mArray.Add(aGameObject);
     }
@@ -43,7 +43,7 @@ public class CManager
 
 
     }
-    /*
+
     public CGameObject collides(CGameObject aGameObject)
     {
         for (int i = mArray.Count - 1; i >= 0; i--)
@@ -51,11 +51,11 @@ public class CManager
             if (aGameObject.collides(mArray[i]))
             {
                 return mArray[i];
-
             }
         }
 
-    }*/
+        return null;
+    }
     private void removeObjectWithIndex(int aIndex)
     {
         if (aIndex < mArray.Count)
