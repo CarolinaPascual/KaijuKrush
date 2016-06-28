@@ -51,11 +51,11 @@ public class LevelsInfo
         //Kaiju type,startStage,1st breakpoint,2nd breakpoint,targetScore,Movements,Difficulty
         Levels.Add(new CInfo(1, 1, 65, 200, 90, 15,0));
         Levels.Add(new CInfo(1, 2, 0, 70, 90, 15, 1));
-        Levels.Add(new CInfo(1, 3, 0, 0, 95, 15, 1));
+        //Levels.Add(new CInfo(1, 3, 0, 0, 95, 15, 1));
 
         Levels.Add(new CInfo(2, 1, 65, 200, 95, 15,2));
         Levels.Add(new CInfo(2, 2, 0, 70, 100, 15, 2));
-        Levels.Add(new CInfo(2, 3, 0, 0, 110, 15, 3));
+        //Levels.Add(new CInfo(2, 3, 0, 0, 110, 15, 3));
 
     }
 

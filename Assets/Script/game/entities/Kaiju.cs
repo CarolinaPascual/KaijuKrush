@@ -87,10 +87,11 @@ public class Kaiju
             {
                 if (mBoard[i][j].food.Type == 3)
                 {
-                    mBoard[i][j].clearFood();
+                    mBoard[i][j].food.markMatch();
                 }
             }
         }
+        CurrentStageData.currentBoard.deleteMatches();
         CurrentStageData.currentBoard.cascadeBoard1();
         CurrentStageData.currentBoard.fillSpaces();
         CurrentStageData.currentBoard.current_state = 3;
