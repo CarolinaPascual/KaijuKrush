@@ -73,7 +73,7 @@ public class Board
                 while (invalidIcon)
                 {
                     iconAux = rng.Next(0, 4);
-                    int auxMissile = rng.Next(1, 11);
+                    
                     
                     invalidIcon = checkMatchCreate(iconAux, i, j);
                     //invalidIcon = false;
@@ -101,12 +101,7 @@ public class Board
         {
             case STATE_END:
                 break;
-            case STATE_NORMAL:
-                if (CKeyboard.pressed(CKeyboard.LEFT))
-                {
-                    CurrentStageData.currentKaiju.firstPower();
-                    return;
-                }
+            case STATE_NORMAL:              
                 tokenSelection();
                 break;
             case STATE_CHANGING:
@@ -127,7 +122,10 @@ public class Board
                         current_state = STATE_NORMAL;
                         if (!possibleMatches())
                         {
-                            fillBoard();
+                            current_state = STATE_ARRANGING;
+                            markAllMatched();
+                            deleteMatches();
+                            fillSpaces();
                         }
                         if (movementsLeft <= 0 |CurrentStageData.currentKaiju.scale >= 100 ) {
                             
@@ -281,7 +279,11 @@ public class Board
                 {
                     if (matrixBoard[i][j].food.Type == matrixBoard[i][j - 1].food.Type && matrixBoard[i][j].food.Type == matrixBoard[i][j + 1].food.Type)
                     {
-                        ret = true;
+                        if (matrixBoard[i][j].food.Type != 4 | mark)
+                        {
+                            ret = true;
+                        }
+                        
                         if (mark)
                         {
                             matrixBoard[i][j].food.markMatch();
@@ -294,7 +296,10 @@ public class Board
                 {
                     if (matrixBoard[i][j].food.Type == matrixBoard[i - 1][j].food.Type && matrixBoard[i][j].food.Type == matrixBoard[i + 1][j].food.Type)
                     {
-                        ret = true;
+                        if (matrixBoard[i][j].food.Type != 4 | mark)
+                        {
+                            ret = true;
+                        }
                         if (mark)
                         {
                             matrixBoard[i][j].food.markMatch();
@@ -318,13 +323,7 @@ public class Board
                     MatchAnim matched = new MatchAnim(matrixBoard[i][j].food.Type, matrixBoard[i][j].background.getX(), matrixBoard[i][j].background.getY());
                     CSpriteManager.inst().add(matched);
                     matrixBoard[i][j].clearFood();
-                    for (int y = i - 1; y >= 0; y--)
-                    {
-                        if (matrixBoard[y][j].food.Type != -1)
-                        {
-                            matrixBoard[y][j].food.cascadeAmount++;
-                        }
-                    }
+                    
                 }
 
             }
@@ -356,34 +355,7 @@ public class Board
             }
         }
     }
-    public void cascadeBoard()
-    {
-        for (int i = matrixBoard.Count() - 2; i >= 0; i--)
-        {
-            for (int j = 0; j < matrixBoard[i].Count(); j++)
-            {
-                cascadeTile(i, j);
-            }
-        }
-    }
-
-    public void cascadeTile(int y, int x)
-    {
-        int cascadeAmount = matrixBoard[y][x].food.cascadeAmount;
-
-        if (cascadeAmount > 0 && matrixBoard[y][x].food.Type != -1)
-        {
-            matrixBoard[y + cascadeAmount][x].food.Type = matrixBoard[y][x].food.Type;
-            matrixBoard[y + cascadeAmount][x].setIcon("Sprites/food" + matrixBoard[y][x].food.Type);
-
-            matrixBoard[y + cascadeAmount][x].food.imgIcon.setX(matrixBoard[y + cascadeAmount][x].background.getX());
-            matrixBoard[y + cascadeAmount][x].food.imgIcon.setY(matrixBoard[y + cascadeAmount][x].background.getY());
-
-            matrixBoard[y][x].clearFood();
-            matrixBoard[y + cascadeAmount][x].food.cascadeAmount = 0;
-        }
-
-    }
+  
     public void fillSpaces()
     {
         System.Random rng = new System.Random();
@@ -410,7 +382,7 @@ public class Board
                 while (matched)
                 {
                     iconAux = rng.Next(0, 4);
-                    auxMissile = rng.Next(1, 11);
+                    auxMissile = rng.Next(1, 21);
                     if (auxMissile <= CurrentStageData.difficulty)
                     {
                         iconAux = 4;
@@ -552,7 +524,7 @@ public class Board
                     {
                         float auxScore = 3;
                         float multiplier = 1;
-                        if (lastType == 3) { auxScore = 1; }
+                        if (lastType == 3) { auxScore = 2; }
                         if (lastType == CurrentStageData.currentKaiju.prefferedFood) {
                             auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
@@ -604,7 +576,7 @@ public class Board
                     {
                         float auxScore = 3;
                         float multiplier = 1;
-                        if (lastType == 3) { auxScore = 1; }
+                        if (lastType == 3) { auxScore = 2; }
                         if (lastType == CurrentStageData.currentKaiju.prefferedFood)
                         {
                             auxScore = 5;                            
@@ -707,6 +679,16 @@ public class Board
     
    
      }
+    public void markAllMatched()
+    {
+        for (int i = 0; i < matrixBoard.Count(); i++)
+        {
+            for (int j = 0; j < matrixBoard[i].Count(); j++)
+            {
+                matrixBoard[i][j].food.markMatch();
+            }
+        }
+    }
 
 }
 

@@ -94,6 +94,7 @@ public class Kaiju
         CurrentStageData.currentBoard.cascadeBoard1();
         CurrentStageData.currentBoard.fillSpaces();
         CurrentStageData.currentBoard.current_state = 3;
+        setState(STATE_SKILL);
     }
     public void growStage()
     {

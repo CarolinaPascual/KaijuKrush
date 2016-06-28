@@ -49,13 +49,13 @@ public class LevelsInfo
         // Kaiju type 1 Dinosaur, type 2 kong, type 3 Kraken
         Levels = new List<CInfo>();
         //Kaiju type,startStage,1st breakpoint,2nd breakpoint,targetScore,Movements,Difficulty
-        Levels.Add(new CInfo(1, 1, 65, 200, 110, 15,0));
-        Levels.Add(new CInfo(1, 2, 0, 70, 110, 15, 1));
-        Levels.Add(new CInfo(1, 3, 0, 0, 120, 15, 2));
+        Levels.Add(new CInfo(1, 1, 65, 200, 90, 15,0));
+        Levels.Add(new CInfo(1, 2, 0, 70, 90, 15, 1));
+        Levels.Add(new CInfo(1, 3, 0, 0, 95, 15, 1));
 
-        Levels.Add(new CInfo(2, 1, 65, 200, 130, 15,2));
-        Levels.Add(new CInfo(2, 2, 0, 70, 140, 15, 2));
-        Levels.Add(new CInfo(2, 3, 0, 0, 150, 15, 3));
+        Levels.Add(new CInfo(2, 1, 65, 200, 95, 15,2));
+        Levels.Add(new CInfo(2, 2, 0, 70, 100, 15, 2));
+        Levels.Add(new CInfo(2, 3, 0, 0, 110, 15, 3));
 
     }
 

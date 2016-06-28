@@ -92,5 +92,17 @@ public class CSprite : CGameObject
         mSprite.transform.localScale = new Vector3(scale, scale, scale);        
     }
 
+    public void setScaleX(float aScale)
+    {
+        float scale = aScale / 100;
+        mSprite.transform.localScale = new Vector3(scale, mSprite.transform.localScale.y, mSprite.transform.localScale.z);
+
+    }
+    public void setScaleY(float aScale)
+    {
+        float scale = aScale / 100;
+        mSprite.transform.localScale = new Vector3(mSprite.transform.localScale.x, scale , mSprite.transform.localScale.z);
+    }
+
     
 }

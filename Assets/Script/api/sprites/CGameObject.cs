@@ -35,6 +35,11 @@ public class CGameObject
         mPos.y = aY;
     }
 
+    public void setXY (float aX,float aY)
+    {
+        setX(aX);
+        setY(aY);
+    }
     public void setZ(float aZ)
     {
         mPos.z = aZ;

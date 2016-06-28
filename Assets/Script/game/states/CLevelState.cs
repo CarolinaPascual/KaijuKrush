@@ -16,7 +16,7 @@ public class CLevelState : CGameState
     private CText resultText;
     private CSprite screenDim;
     private CText nextScreen;
-    private CSpriteManager mSpriteManager;
+    private SkillBar skills;   
 
 
 
@@ -37,6 +37,7 @@ public class CLevelState : CGameState
                 break;
         }
         current_state = STATE_PLAYING;
+        CurrentStageData.difficulty = stageInfo.dif;
         mBoard = new Board();
         //monster = new Kong(1, 53, 76);  
         building = new Enemy();
@@ -55,7 +56,8 @@ public class CLevelState : CGameState
         mBoard.movementsLeft = stageInfo.movements; // MOVE TO CLASS
         mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
-        CurrentStageData.assignData(monster, mBoard, scoreCoefficient,stageInfo.dif);
+        skills = new SkillBar();
+        CurrentStageData.assignData(monster, mBoard, scoreCoefficient,skills);
         screenDim = new CSprite();
         screenDim.setSortingLayer("ScreenShade");
         screenDim.setName("Sombra");
@@ -81,7 +83,7 @@ public class CLevelState : CGameState
         mText.update();
         nextScreen.update();
         resultText.update();
-        
+        skills.update();
         switch (current_state)
         {
             case STATE_PLAYING:
@@ -151,7 +153,8 @@ public class CLevelState : CGameState
             case STATE_LOSE:
                 if (CMouse.firstPress())
                 {
-                   CGame.inst().setState(new CMenuState());
+                    CurrentStageData.clearData();
+                    CGame.inst().setState(new CMenuState());
                 }
                 break;
         }
@@ -171,7 +174,7 @@ public class CLevelState : CGameState
         nextScreen.render();
         mText.render();
         resultText.render();
-        
+        skills.render();
     }
 
     override public void destroy()
@@ -191,7 +194,8 @@ public class CLevelState : CGameState
         screenDim = null;
         nextScreen.destroy();
         nextScreen = null;
-        
+        skills.destroy();
+        skills = null;
            
     }
 

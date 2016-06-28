@@ -34,6 +34,8 @@ class Dinosaur : Kaiju
 
     override public void setState(int aState)
     {
+        if (!(aState==STATE_EAT && currentState == STATE_SKILL))
+        {         
         beast.setState(aState);
         currentState = aState;
         beast.setVisible(true);
@@ -54,6 +56,7 @@ class Dinosaur : Kaiju
             case STATE_WIN:
                 beast.initAnimation(28, 34, 6, false);
                 break;
+            }
         }
     }
 

@@ -18,7 +18,7 @@ class MatchAnim:CSprite
         setState(STATE_INCREASE);        
         scale = 100;
         setSortingLayer("Icons");
-        setAlpha(0.5f);
+        setAlpha(2f);
         
     }
     public override void update()

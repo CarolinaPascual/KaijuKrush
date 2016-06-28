@@ -11,6 +11,7 @@ class CurrentStageData
     public static float score { get; set; }    
     public static Kaiju currentKaiju { get; set; }
     public static  Board currentBoard { get; set; }
+    public static SkillBar currentSkillBar { get; set; }
     public static float growScoreRelation { get; set; }
     private static int shakeAux;
     public static int difficulty { get; set; }
@@ -33,20 +34,22 @@ class CurrentStageData
         mInitialized = true;
         shakeAux = 1;
     }
-    public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber,int aDif)
+    public static void assignData(Kaiju aKaiju, Board aBoard,float aNumber,SkillBar aSkillBar)
     {
         currentBoard = aBoard;
         currentKaiju = aKaiju;
         growScoreRelation = aNumber;
-        difficulty = aDif;
+        currentSkillBar = aSkillBar;
        
     }
+    
 
     public static void clearData()
     {
         score = 0;
         currentKaiju = null;
         currentBoard = null;
+        currentSkillBar = null;
         difficulty = 0;
     }
 
@@ -61,6 +64,7 @@ class CurrentStageData
     public static void addScore(float aScore) {
         score += aScore;
         currentKaiju.addGrow(aScore * growScoreRelation);
+        currentSkillBar.addScore(aScore);
     }
 
     public static void cameraShake()
