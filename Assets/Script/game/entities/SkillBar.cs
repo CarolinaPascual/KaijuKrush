@@ -25,18 +25,20 @@ class SkillBar
         button = new CSprite();
         button.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
         button.setSortingLayer("Icons");
-        button.setXY(40, 520);
+        button.setXY(40, 410);
 
         barFill = new CSprite();
-        barFill.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Energy_BarFull"));
+        barFill.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Energy_BarFull2"));
         barFill.setX(40);
-        barFill.setY(425);
+        barFill.setY(300);
         barFill.setScaleY(scale);
+        
 
         emptyBar = new CSprite();
-        emptyBar.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Energy_Bar"));
+        emptyBar.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Energy_Bar2"));
         emptyBar.setX(40);
-        emptyBar.setY(425);
+        emptyBar.setY(300);
+        
 
     }
 

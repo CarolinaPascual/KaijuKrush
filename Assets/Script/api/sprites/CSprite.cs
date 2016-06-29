@@ -104,5 +104,12 @@ public class CSprite : CGameObject
         mSprite.transform.localScale = new Vector3(mSprite.transform.localScale.x, scale , mSprite.transform.localScale.z);
     }
 
-    
+    public void setRotation(float aRotation)
+    {
+        mSprite.transform.localEulerAngles = new Vector3(1, 1, aRotation);
+    }
+    public float getRotation()
+    {
+        return mSprite.transform.localEulerAngles.z;
+    }
 }

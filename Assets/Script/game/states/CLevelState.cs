@@ -79,7 +79,7 @@ public class CLevelState : CGameState
         monster.update();
         building.update();
         screenDim.update();
-        mText.setText("Movements Left : " + mBoard.getMovementsLeft().ToString());
+        mText.setText("Moves: " + mBoard.getMovementsLeft().ToString());
         mText.update();
         nextScreen.update();
         resultText.update();
