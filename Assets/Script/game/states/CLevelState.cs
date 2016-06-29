@@ -40,7 +40,7 @@ public class CLevelState : CGameState
         CurrentStageData.difficulty = stageInfo.dif;
         mBoard = new Board();
         //monster = new Kong(1, 53, 76);  
-        building = new Enemy();
+        building = new Enemy(stageInfo.building);
         mText = new CText("TEST", CText.alignment.TOP_CENTER);
         mText.setX(0);
         mText.setY(0);

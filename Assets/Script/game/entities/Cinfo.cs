@@ -13,8 +13,9 @@ using System.Text;
         public int TargetScore;
         public int movements;
         public int dif;
+        public int building;
 
-    public CInfo(int aKaiju, int aStartStage,int aFirstStage, int aSecondStage, int aTargetScore, int aMovements,int aDif)
+    public CInfo(int aKaiju, int aStartStage,int aFirstStage, int aSecondStage, int aTargetScore, int aMovements,int aDif,int aBuilding)
     {
         Kaiju = aKaiju;
         startStage = aStartStage;
@@ -23,6 +24,7 @@ using System.Text;
         TargetScore = aTargetScore;
         movements = aMovements;
         dif = aDif;
+        building = aBuilding;
     }
     
 }

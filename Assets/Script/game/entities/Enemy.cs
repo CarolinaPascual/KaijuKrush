@@ -10,15 +10,26 @@ public class Enemy
 {
     private const int STATE_NORMAL = 0;
     private const int STATE_DESTRUCTION = 1;
-
+    private const int BUILDING = 0;
+    private const int HOUSE = 1;
+    private int type;
     public int currentState;
     public CAnimatedSprite building { get; set; }
 
-    public Enemy()
+    public Enemy(int aType)
     {
         building = new CAnimatedSprite();
         building.setName("Building");
-        building.setFrames(Resources.LoadAll<Sprite>("Sprites/Building"));
+        type = aType;
+        switch (type)
+        {
+            case BUILDING:
+                building.setFrames(Resources.LoadAll<Sprite>("Sprites/Building"));
+                break;
+            case HOUSE:
+                building.setFrames(Resources.LoadAll<Sprite>("Sprites/House"));
+                break;
+        }        
         setState(STATE_NORMAL);
         building.setY(535);
         building.setX((CGameConstants.SCREEN_WIDTH / 4) * 3 + 30);
@@ -43,8 +54,17 @@ public class Enemy
             case STATE_NORMAL:
                 building.initAnimation(1, 1, 6, false);
                 break;
-            case STATE_DESTRUCTION:                 
-                building.initAnimation(2, 27, 6, false);
+            case STATE_DESTRUCTION:
+                switch (type)
+                {
+                    case BUILDING:
+                        building.initAnimation(2, 27, 6, false);
+                        break;
+                    case HOUSE:
+                        building.initAnimation(2, 9, 6, false);
+                        break;
+                }
+                
                 
                 break;
             
