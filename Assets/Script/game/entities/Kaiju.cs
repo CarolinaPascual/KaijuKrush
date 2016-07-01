@@ -43,12 +43,16 @@ public class Kaiju
         }
 
 
-        if (growCounter != 0 & scale <= 110)
-        {
+        if (growCounter != 0 & scale <= 110 )
+        {           
             float aux = growCounter / 10;
-            scale += aux;
-            growCounter -= aux;
-            beast.setScale(scale);
+            if (!(scale + aux <= 0))
+            {
+                scale += aux;
+                growCounter -= aux;
+                beast.setScale(scale);
+            }
+            
 
         }
         if ((stage == 1 & scale >= firstBreakpoint) | (stage == 2 & scale >= secondBreakpoint))
@@ -96,6 +100,10 @@ public class Kaiju
         CurrentStageData.currentBoard.fillSpaces();
         CurrentStageData.currentBoard.current_state = 3;
         setState(STATE_SKILL);
+    }
+    virtual public void secondPower()
+    {
+        
     }
     public void growStage()
     {

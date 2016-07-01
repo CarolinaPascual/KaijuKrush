@@ -12,20 +12,27 @@ class SkillBar
     private int currentState = 0;
     public float scale { get; set; }
     private float scaleCounter { get; set; }
-    public CSprite button { get; set; }
+    public CSprite button01 { get; set; }
+    public CSprite button02 { get; set; }
     public CSprite emptyBar { get; set; }
     public CSprite barFill { get; set; }
-    
+    private int button2Type { get; set; }
 
-    public SkillBar()
+    public SkillBar(int aType)
     {
         currentState = STATE_NORMAL;
         scale = 0;
         scaleCounter = 0;
-        button = new CSprite();
-        button.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
-        button.setSortingLayer("Icons");
-        button.setXY(40, 410);
+        button01 = new CSprite();
+        button01.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
+        button01.setSortingLayer("Icons");
+        button01.setXY(40, 410);
+
+        button02 = new CSprite();
+        button2Type = aType;
+        button02.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill2-Unable0" + button2Type.ToString()));
+        button01.setSortingLayer("Icons");
+        button02.setXY(40, 510);
 
         barFill = new CSprite();
         barFill.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Energy_BarFull2"));
@@ -44,17 +51,10 @@ class SkillBar
 
     public void update()
     {
-        button.update();
+        button01.update();
+        button02.update();
         barFill.update();
         emptyBar.update();
-        
-    }
-    public void render()
-    {
-        button.render();
-        barFill.render();
-        emptyBar.render();
-
         if (scaleCounter != 0 & scale <= 100)
         {
             float aux = scaleCounter / 10;
@@ -65,7 +65,8 @@ class SkillBar
             {
                 scale = 100;
                 scaleCounter = 0;
-                button.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Active"));
+                button01.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Active"));
+                button02.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill2-Active0" + button2Type.ToString()));
                 currentState = STATE_FULL;
             }
 
@@ -74,13 +75,35 @@ class SkillBar
         if (currentState == STATE_FULL)
         {
             if (skill1Click() && CurrentStageData.currentBoard.current_state != 0)
-            {               
-               CurrentStageData.currentKaiju.firstPower();
-               scaleCounter = -100;
-               button.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
+            {
+                CurrentStageData.currentKaiju.firstPower();
+                scaleCounter = -100;
+                button01.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
+                button02.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill2-Unable0" + button2Type.ToString()));
+                currentState = STATE_NORMAL;
+            }
+            else if (skill2Click() && CurrentStageData.currentBoard.current_state != 0)
+            {
+                
+                CAnimatedSprite skillAnim = new CAnimatedSprite();
+                Skill2Animation auxSkill = new Skill2Animation(button2Type);
+                CSpriteManager.inst().add(auxSkill);
+
+                scaleCounter = -100;
+                button01.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
+                button02.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill2-Unable0" + button2Type.ToString()));
                 currentState = STATE_NORMAL;
             }
         }
+    }
+    public void render()
+    {
+        button01.render();
+        button02.render();
+        barFill.render();
+        emptyBar.render();
+
+        
 
     }
 
@@ -90,10 +113,10 @@ class SkillBar
 
         if (CMouse.firstPress())
         {
-            float button1MinX = button.getX() - button.getWidth() / 2;
-            float button1MaxX = button.getX() + button.getWidth() / 2;
-            float button1MinY = button.getY() - button.getHeight();
-            float button1MaxY = button.getY();
+            float button1MinX = button01.getX() - button01.getWidth() / 2;
+            float button1MaxX = button01.getX() + button01.getWidth() / 2;
+            float button1MinY = button01.getY() - button01.getHeight();
+            float button1MaxY = button01.getY();
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
@@ -101,6 +124,27 @@ class SkillBar
                 clicked = true;
             }
             
+        }
+
+        return clicked;
+    }
+    private bool skill2Click()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button2MinX = button02.getX() - button02.getWidth() / 2;
+            float button2MaxX = button02.getX() + button02.getWidth() / 2;
+            float button2MinY = button02.getY() - button02.getHeight();
+            float button2MaxY = button02.getY();
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button2MinX && mouseX <= button2MaxX && mouseY >= button2MinY && mouseY <= button2MaxY)
+            {
+                clicked = true;
+            }
+
         }
 
         return clicked;
@@ -116,9 +160,11 @@ class SkillBar
 
     public void destroy()
     {
-        button.destroy();
+        button01.destroy();
+        button02.destroy();
         emptyBar.destroy();
         barFill.destroy();
-}
+    }
+   
 }
 

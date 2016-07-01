@@ -42,7 +42,7 @@ class MatchAnim:CAnimatedSprite
                         setState(STATE_EXPLODE);
                         setFrames(Resources.LoadAll<Sprite>("Sprites/Explotion"));
                         setAlpha(1f);
-                        initAnimation(1, 4, 20, false);
+                        initAnimation(1, 4, 12, false);
                     }
                         
                 }

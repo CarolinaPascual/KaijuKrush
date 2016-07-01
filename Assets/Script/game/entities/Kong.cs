@@ -21,7 +21,7 @@ class Kong : Kaiju
         setState(STATE_NORMAL);
         beast.setScale(scale);
         beast.setY(535);
-        beast.setX(CGameConstants.SCREEN_WIDTH / 4 );
+        beast.setX(CGameConstants.SCREEN_WIDTH / 4 +10);
         beast.setSortingLayer("Icons");
         beast.render();
         prefferedFood = 0;
@@ -56,6 +56,28 @@ class Kong : Kaiju
     {
         base.update();
 
+    }
+    public override void secondPower()
+    {
+        System.Random rng = new System.Random();
+        int collumn = rng.Next(0, 7);
+        int row = rng.Next(0, 7);
+        List<List<Tile>> mBoard = CurrentStageData.currentBoard.matrixBoard;
+        for (int i = 0; i < mBoard.Count(); i++)
+        {
+            for (int j = 0; j < mBoard[i].Count(); j++)
+            {
+                if(i==row || j == collumn)
+                {
+                    mBoard[i][j].food.markMatch();
+                }
+            }
+        }
+        CurrentStageData.currentBoard.deleteMatches();
+        CurrentStageData.currentBoard.cascadeBoard1();
+        CurrentStageData.currentBoard.fillSpaces();
+        CurrentStageData.currentBoard.current_state = 3;
+        setState(STATE_SKILL);
     }
 
 }

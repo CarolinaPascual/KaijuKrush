@@ -13,8 +13,7 @@ using System.Text;
         CGame.inst().setImage("Sprites/Main-Menu-PH");
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);
-        
-        
+                
     }
 
     override public void init()
@@ -27,7 +26,7 @@ using System.Text;
         CMouse.update();
         if (CMouse.firstPress())
         {
-            CGame.inst().setImage("Sprites/level_Background");
+            
             CGame.inst().setState(new CLevelState(1));
             return;
         }

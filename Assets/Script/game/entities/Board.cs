@@ -530,7 +530,7 @@ public class Board
                             CurrentStageData.currentKaiju.setState(1);
                         }else if (lastType == 4)
                         {
-                            auxScore = -3;
+                            auxScore = -4;
                         }
                         switch (count)
                         {
@@ -584,7 +584,7 @@ public class Board
                         }
                         else if (lastType == 4)
                         {
-                            auxScore = -3;
+                            auxScore = -4;
                         }
                         switch (count)
                         {

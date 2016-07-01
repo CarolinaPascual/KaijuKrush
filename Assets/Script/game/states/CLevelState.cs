@@ -16,13 +16,16 @@ public class CLevelState : CGameState
     private CText resultText;
     private CSprite screenDim;
     private CText nextScreen;
-    private SkillBar skills;   
+    private SkillBar skills;
+    private CSprite backMenuBttn;
+    private CSprite tryAgainBttn;
 
 
 
     public CLevelState(int stageNumber)
     {
         CInfo stageInfo = LevelsInfo.getLevel(stageNumber);
+        CGame.inst().setImage("Sprites/level_Background0" + stageInfo.building.ToString());
         CurrentStageData.currentStage = stageNumber;
         switch (stageInfo.Kaiju)
         {
@@ -44,6 +47,7 @@ public class CLevelState : CGameState
         mText = new CText("TEST", CText.alignment.TOP_CENTER);
         mText.setX(0);
         mText.setY(0);
+        mText.setColor(Color.black);
         resultText = new CText("", CText.alignment.TOP_CENTER);
         resultText.setX(0);
         resultText.setY(100);
@@ -56,14 +60,17 @@ public class CLevelState : CGameState
         mBoard.movementsLeft = stageInfo.movements; // MOVE TO CLASS
         mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
-        skills = new SkillBar();
+        skills = new SkillBar(stageInfo.Kaiju);
         CurrentStageData.assignData(monster, mBoard, scoreCoefficient,skills);
         screenDim = new CSprite();
         screenDim.setSortingLayer("ScreenShade");
         screenDim.setName("Sombra");
-        
+        backMenuBttn = new CSprite();
+        backMenuBttn.setSortingLayer("TextUI");        
+        tryAgainBttn = new CSprite();
+        tryAgainBttn.setSortingLayer("TextUI");
 
-    }
+}
 
     override public void init()
     {
@@ -84,6 +91,8 @@ public class CLevelState : CGameState
         nextScreen.update();
         resultText.update();
         skills.update();
+        backMenuBttn.update();
+        tryAgainBttn.update();
         switch (current_state)
         {
             case STATE_PLAYING:
@@ -104,9 +113,13 @@ public class CLevelState : CGameState
                         screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                         screenDim.setX(0);
                         screenDim.setY(0);
-                        nextScreen.setVisible(true);
+                        //nextScreen.setVisible(true);
                         current_state = STATE_LOSE;
                         resultText.setText("YOU LOSE");
+                        backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
+                        backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
+                        tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));
+                        tryAgainBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2+ 100);
                         monster.setState(2);
 
                     }
@@ -128,8 +141,7 @@ public class CLevelState : CGameState
 
                     if (CMouse.firstPress())
                     {
-                        CurrentStageData.clearData();
-                        CGame.inst().setImage("Sprites/level_Background");
+                        CurrentStageData.clearData();                        
                         if (CurrentStageData.currentStage>= LevelsInfo.getLevelsAmount())
                         {
                             CGame.inst().setState(new CMenuState());
@@ -151,10 +163,17 @@ public class CLevelState : CGameState
                 break;
 
             case STATE_LOSE:
-                if (CMouse.firstPress())
+                if (backToMenuClick())
                 {
                     CurrentStageData.clearData();
                     CGame.inst().setState(new CMenuState());
+                    return;
+                }
+                if (tryAgainClick())
+                {
+                    CurrentStageData.clearData();
+                    CGame.inst().setState(new CLevelState(CurrentStageData.currentStage));
+                    return;
                 }
                 break;
         }
@@ -175,6 +194,8 @@ public class CLevelState : CGameState
         mText.render();
         resultText.render();
         skills.render();
+        backMenuBttn.render();
+        tryAgainBttn.render();
     }
 
     override public void destroy()
@@ -196,7 +217,54 @@ public class CLevelState : CGameState
         nextScreen = null;
         skills.destroy();
         skills = null;
-           
+        backMenuBttn.destroy();
+        backMenuBttn = null;
+        tryAgainBttn.destroy();
+        tryAgainBttn = null;
+
+    }
+    public bool tryAgainClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = tryAgainBttn.getX() - tryAgainBttn.getWidth() / 2;
+            float button1MaxX = tryAgainBttn.getX() + tryAgainBttn.getWidth() / 2;
+            float button1MinY = tryAgainBttn.getY() - tryAgainBttn.getHeight() /2;
+            float button1MaxY = tryAgainBttn.getY() + tryAgainBttn.getHeight() /2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+
+    public bool backToMenuClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = backMenuBttn.getX() - backMenuBttn.getWidth() / 2;
+            float button1MaxX = backMenuBttn.getX() + backMenuBttn.getWidth() / 2;
+            float button1MinY = backMenuBttn.getY() - backMenuBttn.getHeight() / 2;
+            float button1MaxY = backMenuBttn.getY() + backMenuBttn.getHeight() / 2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
     }
 
 }

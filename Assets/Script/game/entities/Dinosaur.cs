@@ -66,7 +66,26 @@ class Dinosaur : Kaiju
       
     }
     
+    override public void secondPower()
+    {
+        List<List<Tile>> mBoard = CurrentStageData.currentBoard.matrixBoard;
+        for (int i = 0; i < mBoard.Count(); i++)
+        {
+            for (int j = 0; j < mBoard[i].Count(); j++)
+            {
+                if (j + i == 2 || i + j == 6 || i + j == 10)
+                {
+                    mBoard[i][j].food.markMatch();
+                }
 
+            }
+        }
+        CurrentStageData.currentBoard.deleteMatches();
+        CurrentStageData.currentBoard.cascadeBoard1();
+        CurrentStageData.currentBoard.fillSpaces();
+        CurrentStageData.currentBoard.current_state = 3;
+        setState(STATE_SKILL);
+    }
   
 }
 
