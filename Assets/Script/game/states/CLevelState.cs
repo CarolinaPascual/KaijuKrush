@@ -36,7 +36,7 @@ public class CLevelState : CGameState
                 monster = new Kong(stageInfo.startStage, stageInfo.firstStage, stageInfo.secondStage);
                 break;
             case 3:
-               // monster = new Kraken(stageInfo.startStage, stageInfo.firstStage, stageInfo.secondStage);
+                monster = new Kraken(stageInfo.startStage, stageInfo.firstStage, stageInfo.secondStage);
                 break;
         }
         current_state = STATE_PLAYING;
