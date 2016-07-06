@@ -72,6 +72,10 @@ class CurrentStageData
         score += aScore;
         currentKaiju.addGrow(aScore * growScoreRelation);
         currentSkillBar.addScore(aScore);
+        if (currentBoard.mode == 1)
+        {
+            currentTimer.addTime(aScore);
+        }
     }
 
     public static void cameraShake()

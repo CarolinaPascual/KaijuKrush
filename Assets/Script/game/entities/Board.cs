@@ -105,7 +105,7 @@ public class Board
             case STATE_END:
                 break;
             case STATE_NORMAL: 
-                if (mode==MODE_SURV & CurrentStageData.currentTimer.getTimeLeft() == 0)
+                if (mode==MODE_SURV && CurrentStageData.currentTimer.getTimeLeft() == 0)
                 {
                     current_state = STATE_END;
                 }             

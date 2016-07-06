@@ -60,14 +60,14 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -82,7 +82,6 @@
     <Compile Include="Assets\Script\api\sprites\CSprite.cs" />
     <Compile Include="Assets\Script\api\sprites\CText.cs" />
     <Compile Include="Assets\Script\game\CGameConstants.cs" />
-    <Compile Include="Assets\Script\game\entities\Timer.cs" />
     <Compile Include="Assets\Script\game\Manager\CManager.cs" />
     <Compile Include="Assets\Script\game\Manager\CSpriteManager.cs" />
     <Compile Include="Assets\Script\game\entities\Animations\MatchAnim.cs" />
@@ -99,7 +98,9 @@
     <Compile Include="Assets\Script\game\entities\LevelsInfo.cs" />
     <Compile Include="Assets\Script\game\entities\SkillBar.cs" />
     <Compile Include="Assets\Script\game\entities\Tile.cs" />
+    <Compile Include="Assets\Script\game\entities\Timer.cs" />
     <Compile Include="Assets\Script\game\entities\token.cs" />
+    <Compile Include="Assets\Script\game\states\CKaijuSelectionState.cs" />
     <Compile Include="Assets\Script\game\states\CLevelState.cs" />
     <Compile Include="Assets\Script\game\states\CMenuState.cs" />
     <Compile Include="Assets\Script\game\states\CSurvivalState.cs" />
