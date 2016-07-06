@@ -12,6 +12,8 @@ public class Board
     const int STATE_CHANGING = 2;
     const int STATE_ARRANGING = 3;
 
+    const int MODE_NORMAL = 0;
+    const int MODE_SURV = 1;
 
     public List<List<Tile>> matrixBoard { get; set; }
     private int boardHeight = 7;
@@ -21,11 +23,12 @@ public class Board
     public int movementsLeft { get; set; }
     public int targetScore { get; set; }
     public int current_state { get; set; }
+    public int mode { get; set; }
 
-
-    public Board()
+    public Board(int aMode)
     {
-
+        mode = aMode;
+        
         current_state = STATE_ARRANGING;
         matrixBoard = new List<List<Tile>>();
         for (int i = 0; i < boardHeight; i++)
@@ -101,7 +104,11 @@ public class Board
         {
             case STATE_END:
                 break;
-            case STATE_NORMAL:              
+            case STATE_NORMAL: 
+                if (mode==MODE_SURV & CurrentStageData.currentTimer.getTimeLeft() == 0)
+                {
+                    current_state = STATE_END;
+                }             
                 tokenSelection();
                 break;
             case STATE_CHANGING:
@@ -127,10 +134,21 @@ public class Board
                             deleteMatches();
                             fillSpaces();
                         }
-                        if (movementsLeft <= 0 |CurrentStageData.currentKaiju.scale >= 100 ) {
+                        if (mode == MODE_NORMAL) {
+                            if (movementsLeft <= 0 | CurrentStageData.currentKaiju.scale >= 100)
+                            {
+
+                                current_state = STATE_END;
+                            }
+                        }else
+                        {
+                            if(CurrentStageData.currentTimer.timeLeft <= 0)
+                            {
+                                current_state = STATE_END;
+                            }
                             
-                            current_state = STATE_END;
                         }
+                        
                     }
                 }
                 break;

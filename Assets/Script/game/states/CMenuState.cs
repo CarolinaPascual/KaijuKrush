@@ -26,8 +26,10 @@ using System.Text;
         CMouse.update();
         if (CMouse.firstPress())
         {
-            
-            CGame.inst().setState(new CLevelState(1));
+
+            //CGame.inst().setState(new CLevelState(1));
+            CInfo aux1 = new CInfo(1, 1, 50, 70, 300, 0, 0, 0);
+            CGame.inst().setState(new CSurvivalState(aux1));
             return;
         }
         CSpriteManager.inst().update();

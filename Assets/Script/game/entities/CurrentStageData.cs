@@ -16,6 +16,7 @@ class CurrentStageData
     private static int shakeAux;
     public static int difficulty { get; set; }
     public static int currentStage { get; set; }
+    public static Timer currentTimer { get; set; }
 
     public CurrentStageData()
     {
@@ -42,6 +43,11 @@ class CurrentStageData
         currentSkillBar = aSkillBar;
        
     }
+
+    public static void assignTimer(Timer aTimer)
+    {
+        currentTimer = aTimer;
+    }
     
 
     public static void clearData()
@@ -50,6 +56,7 @@ class CurrentStageData
         currentKaiju = null;
         currentBoard = null;
         currentSkillBar = null;
+        currentTimer = null;
         difficulty = 0;
     }
 
