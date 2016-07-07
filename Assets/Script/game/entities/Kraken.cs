@@ -21,7 +21,7 @@ class Kraken:Kaiju
         setState(STATE_NORMAL);
         beast.setScale(scale);
         beast.setY(535);
-        beast.setX(CGameConstants.SCREEN_WIDTH / 4);
+        beast.setX(CGameConstants.SCREEN_WIDTH / 4 + 100);
         beast.setSortingLayer("Icons");
         beast.render();
         prefferedFood = 2;
@@ -68,7 +68,10 @@ class Kraken:Kaiju
         {
             for (int j = 0; j < mBoard[i].Count(); j++)
             {
-                
+                if ((j + i) % 2 == 0)
+                {
+                    mBoard[i][j].food.markMatch();
+                }
 
             }
         }

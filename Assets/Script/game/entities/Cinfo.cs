@@ -10,12 +10,12 @@ using System.Text;
         public int startStage;
         public int firstStage;
         public int secondStage;
-        public int TargetScore;
+        public float TargetScore;
         public int movements;
         public int dif;
         public int building;
 
-    public CInfo(int aKaiju, int aStartStage,int aFirstStage, int aSecondStage, int aTargetScore, int aMovements,int aDif,int aBuilding)
+    public CInfo(int aKaiju, int aStartStage,int aFirstStage, int aSecondStage, float aTargetScore, int aMovements,int aDif,int aBuilding)
     {
         Kaiju = aKaiju;
         startStage = aStartStage;

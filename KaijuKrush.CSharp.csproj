@@ -63,16 +63,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\api\Audio\CAudio.cs" />
     <Compile Include="Assets\Script\api\framework\CGame.cs" />
     <Compile Include="Assets\Script\api\framework\CGameState.cs" />
+    <Compile Include="Assets\Script\api\framework\SoundManager.cs" />
     <Compile Include="Assets\Script\api\input\CKeyboard.cs" />
     <Compile Include="Assets\Script\api\input\CMouse.cs" />
     <Compile Include="Assets\Script\api\math\CMath.cs" />

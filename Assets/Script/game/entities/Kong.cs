@@ -21,7 +21,7 @@ class Kong : Kaiju
         setState(STATE_NORMAL);
         beast.setScale(scale);
         beast.setY(535);
-        beast.setX(CGameConstants.SCREEN_WIDTH / 4 +10);
+        beast.setX(CGameConstants.SCREEN_WIDTH / 4 +80);
         beast.setSortingLayer("Icons");
         beast.render();
         prefferedFood = 0;

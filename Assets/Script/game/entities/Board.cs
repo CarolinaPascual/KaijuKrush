@@ -21,7 +21,7 @@ public class Board
     private int[] firstSelect = { -1, -1 };
     private int[] secondSelect = { -1, -1 };
     public int movementsLeft { get; set; }
-    public int targetScore { get; set; }
+    public float targetScore { get; set; }
     public int current_state { get; set; }
     public int mode { get; set; }
 

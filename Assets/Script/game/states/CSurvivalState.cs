@@ -15,6 +15,7 @@ class CSurvivalState : CGameState
     private Kaiju monster;
     private Enemy building;
 
+    private CText scoreText;
     private CText resultText;
     private CSprite screenDim;
     private CText timeLeft;
@@ -55,6 +56,12 @@ class CSurvivalState : CGameState
         timeLeft.setY(0);
         timeLeft.setColor(Color.black);
 
+        scoreText = new CText("SCORE :", CText.alignment.TOP_CENTER);
+        scoreText.setX(400);
+        scoreText.setY(0);
+        scoreText.setColor(Color.black);
+        
+
         mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
         skills = new SkillBar(stageInfo.Kaiju);
@@ -92,6 +99,8 @@ class CSurvivalState : CGameState
         tryAgainBttn.update();
         timeLeft.setText("TIME: " + (int)(CurrentStageData.currentTimer.getTimeLeft()));
         timeLeft.update();
+        scoreText.setText("SCORE: " + (CurrentStageData.score * 10));
+        scoreText.update();
         switch (current_state)
         {
             case STATE_PLAYING:
@@ -126,6 +135,8 @@ class CSurvivalState : CGameState
                 break;
 
             case STATE_WIN:
+                CGameConstants.HIGH_SCORE = CurrentStageData.score;
+                tryAgainInfo.TargetScore = CurrentStageData.score;
                 if (!building.building.isEnded())
                 {
                     CurrentStageData.cameraShake();
@@ -191,6 +202,7 @@ class CSurvivalState : CGameState
         skills.render();
         backMenuBttn.render();
         tryAgainBttn.render();
+        scoreText.render();
     }
 
     override public void destroy()
@@ -215,6 +227,8 @@ class CSurvivalState : CGameState
         backMenuBttn = null;
         tryAgainBttn.destroy();
         tryAgainBttn = null;
+        scoreText.destroy();
+        scoreText = null;
 
     }
     public bool tryAgainClick()

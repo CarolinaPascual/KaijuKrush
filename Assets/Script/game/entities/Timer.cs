@@ -9,6 +9,7 @@ class Timer
         public float maxTime = 60;
         public float timeLeft { get; set; }
         public float cumulativeTime { get; set; }
+        public float difficultyTime { get; set; }
 
     public Timer()
     {
@@ -24,6 +25,12 @@ class Timer
             timeLeft = 0;
         }
         cumulativeTime += Time.deltaTime;
+        difficultyTime += Time.deltaTime;
+        if (difficultyTime >= 15& CurrentStageData.difficulty<=5)
+        {
+            difficultyTime = 0;
+            CurrentStageData.difficulty += 1;
+        }
         
     }
 
@@ -33,10 +40,14 @@ class Timer
     }
     public void addTime(float aScore)
     {
-        timeLeft += (aScore / 5);
+        timeLeft += (aScore / 6);
         if(timeLeft> maxTime)
         {
             timeLeft = maxTime;
+        }
+        if (timeLeft < 0)
+        {
+            timeLeft = 0;
         }
     }
 }

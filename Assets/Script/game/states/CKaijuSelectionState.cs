@@ -44,20 +44,20 @@ class CKaijuSelectionState:CGameState
         if (dinoClick())
         {
 
-            CInfo aux1 = new CInfo(1, 1, 50, 70, 300, 0, 0, 0);
+            CInfo aux1 = new CInfo(1, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
             CGame.inst().setState(new CSurvivalState(aux1));
             return;
         }
         else
         if (kongClick())
         {
-            CInfo aux1 = new CInfo(2, 1, 50, 70, 300, 0, 0, 0);
+            CInfo aux1 = new CInfo(2, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
             CGame.inst().setState(new CSurvivalState(aux1));
             return;
 
         }
         else if(krakenClick()){
-            CInfo aux1 = new CInfo(3, 1, 50, 70, 300, 0, 0, 0);
+            CInfo aux1 = new CInfo(3, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
             CGame.inst().setState(new CSurvivalState(aux1));
             return;
         }

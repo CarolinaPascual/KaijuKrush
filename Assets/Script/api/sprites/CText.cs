@@ -37,7 +37,7 @@ public class CText : CGameObject
         mText.font = font;
         mText.fontSize = aFontSize;
 
-        mText.rectTransform.sizeDelta = new Vector2(250, 300);
+        mText.rectTransform.sizeDelta = new Vector2(400, 400);
 
         mTransform = mSprite.transform;
 

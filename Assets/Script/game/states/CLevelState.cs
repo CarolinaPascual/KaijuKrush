@@ -19,7 +19,7 @@ public class CLevelState : CGameState
     private SkillBar skills;
     private CSprite backMenuBttn;
     private CSprite tryAgainBttn;
-
+    
 
 
     public CLevelState(int stageNumber)
@@ -68,7 +68,9 @@ public class CLevelState : CGameState
         backMenuBttn = new CSprite();
         backMenuBttn.setSortingLayer("TextUI");        
         tryAgainBttn = new CSprite();
-        tryAgainBttn.setSortingLayer("TextUI");
+        tryAgainBttn.setSortingLayer("TextUI");       
+               
+       
 
 }
 
