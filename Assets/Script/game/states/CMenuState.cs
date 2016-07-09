@@ -9,7 +9,8 @@ class CMenuState:CGameState
     private CSprite storyBtn;
     private CSprite endlessBtn;
     private CSprite exit;
-
+    private int buttonClicked = 0;
+    
     public CMenuState()
     {
         CGame.inst().setImage("Sprites/Menu");
@@ -17,15 +18,15 @@ class CMenuState:CGameState
         CGame.inst().getBakcground().setY(0);
 
         storyBtn = new CSprite();
-        storyBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Story_Mode2"));
+        storyBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Story_Mode"));
         storyBtn.setXY(200, 732);
         storyBtn.setSortingLayer("Icons");
         endlessBtn = new CSprite();
-        endlessBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Endless2"));
+        endlessBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Endless"));
         endlessBtn.setXY(200, 878);
         endlessBtn.setSortingLayer("Icons");
         exit = new CSprite();
-        exit.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Exit2"));
+        exit.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Exit"));
         exit.setXY(200, 1020);
         exit.setSortingLayer("Icons");
     }
@@ -43,17 +44,40 @@ class CMenuState:CGameState
         exit.update();
         if (storyClick())
         {
-
-            CGame.inst().setState(new CLevelState(1));            
+            storyBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Story_Mode_p"));
+            buttonClicked = 1;                 
+                        
             return;
         }else
         if (endlessClick())
         {
-            CGame.inst().setState(new CKaijuSelectionState());
+            endlessBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Endless_p"));
+            buttonClicked = 2;
+           
             return;
             
+        }else if (exitClick())
+        {
+            exit.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Exit_p"));
+            buttonClicked = 3;
+            
+
         }
         CSpriteManager.inst().update();
+        switch (buttonClicked)
+        {
+            case 0:            
+                break;
+            case 1:
+                CGame.inst().setState(new CLevelState(1));
+                break;
+            case 2:
+                CGame.inst().setState(new CKaijuSelectionState());
+                break;
+            case 3:
+                Application.Quit();
+                break;
+        }
     }
     override public void render()
     {

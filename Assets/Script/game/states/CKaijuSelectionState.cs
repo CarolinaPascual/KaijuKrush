@@ -6,9 +6,10 @@ using UnityEngine;
 
 class CKaijuSelectionState:CGameState
     {
-    private CSprite dinoBtn;
-    private CSprite kongBtn;
-    private CSprite krakenBtn;
+    private KaijuSelectButton dinoBtn;
+    private KaijuSelectButton kongBtn;
+    private KaijuSelectButton krakenBtn;
+    private int selected = 0;
 
     public CKaijuSelectionState()
     {
@@ -16,17 +17,19 @@ class CKaijuSelectionState:CGameState
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);
 
-        dinoBtn = new CSprite();
+        dinoBtn = new KaijuSelectButton();
         dinoBtn.setImage(Resources.Load<Sprite>("Sprites/KaijuSelection/dinoBtn"));
-        dinoBtn.setXY(0,0);
+        dinoBtn.setPosition(-dinoBtn.getWidth(), 0, 0, 0);        
         dinoBtn.setSortingLayer("Icons");
-        kongBtn = new CSprite();
+
+        kongBtn = new KaijuSelectButton();
         kongBtn.setImage(Resources.Load<Sprite>("Sprites/KaijuSelection/kongBtn"));
-        kongBtn.setXY(0,dinoBtn.getHeight());
+        kongBtn.setPosition(kongBtn.getWidth(), dinoBtn.getHeight(), 0, dinoBtn.getHeight());
         kongBtn.setSortingLayer("Icons");
-        krakenBtn = new CSprite();
+
+        krakenBtn = new KaijuSelectButton();
         krakenBtn.setImage(Resources.Load<Sprite>("Sprites/KaijuSelection/krakenbtn"));
-        krakenBtn.setXY(0,kongBtn.getY()+kongBtn.getHeight());
+        krakenBtn.setPosition(-krakenBtn.getWidth(), kongBtn.getY() + kongBtn.getHeight(), 0, kongBtn.getY() + kongBtn.getHeight());        
         krakenBtn.setSortingLayer("Icons");
     }
 
@@ -41,26 +44,64 @@ class CKaijuSelectionState:CGameState
         dinoBtn.update();
         kongBtn.update();
         krakenBtn.update();
-        if (dinoClick())
-        {
 
-            CInfo aux1 = new CInfo(1, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
-            CGame.inst().setState(new CSurvivalState(aux1));
-            return;
-        }
-        else
+        switch (selected)
+        {
+           case 0:
+                if (dinoClick())
+                {
+
+                   
+                    kongBtn.leave();
+                    krakenBtn.leave();                    
+                    selected = 1;
+                    return;
+                }
+                else
         if (kongClick())
-        {
-            CInfo aux1 = new CInfo(2, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
-            CGame.inst().setState(new CSurvivalState(aux1));
-            return;
+                {
+                    
+                    dinoBtn.leave();
+                    krakenBtn.leave();
+                   
+                    selected = 2;
+                    return;
 
+                }
+                else if (krakenClick())
+                {
+                    
+                    kongBtn.leave();
+                    dinoBtn.leave();
+                    
+                    selected  = 3;
+                    return;
+                }
+                break;
+            case 1:
+                if (kongBtn.currentState == 1)
+                {
+                    CInfo aux1 = new CInfo(1, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
+                    CGame.inst().setState(new CSurvivalState(aux1));
+                }
+                break;
+            case 2:
+                if (dinoBtn.currentState == 1)
+                {
+                    CInfo aux1 = new CInfo(2, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
+                    CGame.inst().setState(new CSurvivalState(aux1));
+                }
+                break;
+            case 3:
+                if (dinoBtn.currentState == 1)
+                {
+                    CInfo aux1 = new CInfo(3, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
+                    CGame.inst().setState(new CSurvivalState(aux1));
+                }
+                break;
         }
-        else if(krakenClick()){
-            CInfo aux1 = new CInfo(3, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
-            CGame.inst().setState(new CSurvivalState(aux1));
-            return;
-        }
+
+        
         CSpriteManager.inst().update();
     }
     override public void render()

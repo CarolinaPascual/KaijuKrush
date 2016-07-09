@@ -25,13 +25,13 @@ class SkillBar
         scaleCounter = 0;
         button01 = new CSprite();
         button01.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill1-Unable"));
-        button01.setSortingLayer("Icons");
+        button01.setSortingLayer("TextUI");
         button01.setXY(40, 410);
 
         button02 = new CSprite();
         button2Type = aType;
         button02.setImage(Resources.Load<Sprite>("Sprites/SkillBar/Button-Skill2-Unable0" + button2Type.ToString()));
-        button01.setSortingLayer("Icons");
+        button02.setSortingLayer("TextUI");
         button02.setXY(40, 510);
 
         barFill = new CSprite();
