@@ -9,11 +9,13 @@ class CKaijuSelectionState:CGameState
     private KaijuSelectButton dinoBtn;
     private KaijuSelectButton kongBtn;
     private KaijuSelectButton krakenBtn;
+    private CSprite backBtn;
     private int selected = 0;
 
     public CKaijuSelectionState()
     {
-        CGame.inst().setImage("Sprites/Menu");
+
+        CGame.inst().setImage("Sprites/Menu-Sin-Logo");
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);
 
@@ -31,6 +33,11 @@ class CKaijuSelectionState:CGameState
         krakenBtn.setImage(Resources.Load<Sprite>("Sprites/KaijuSelection/krakenbtn"));
         krakenBtn.setPosition(-krakenBtn.getWidth(), kongBtn.getY() + kongBtn.getHeight(), 0, kongBtn.getY() + kongBtn.getHeight());        
         krakenBtn.setSortingLayer("Icons");
+
+        backBtn = new CSprite();
+        backBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/back_button"));
+        backBtn.setXY(650, 1220);
+        backBtn.setSortingLayer("TextUI");
     }
 
     override public void init()
@@ -41,10 +48,17 @@ class CKaijuSelectionState:CGameState
     {
         base.update();
         CMouse.update();
+        backBtn.update();
         dinoBtn.update();
         kongBtn.update();
         krakenBtn.update();
 
+        if (backClick())
+        {
+            CGame.inst().setState(new CMenuState());
+            return;
+        }
+        
         switch (selected)
         {
            case 0:
@@ -79,21 +93,21 @@ class CKaijuSelectionState:CGameState
                 }
                 break;
             case 1:
-                if (kongBtn.currentState == 1)
+                if (kongBtn.currentState == 1 & krakenBtn.currentState== 1)
                 {
                     CInfo aux1 = new CInfo(1, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
                     CGame.inst().setState(new CSurvivalState(aux1));
                 }
                 break;
             case 2:
-                if (dinoBtn.currentState == 1)
+                if (dinoBtn.currentState == 1 & krakenBtn.currentState == 1)
                 {
                     CInfo aux1 = new CInfo(2, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
                     CGame.inst().setState(new CSurvivalState(aux1));
                 }
                 break;
             case 3:
-                if (dinoBtn.currentState == 1)
+                if (dinoBtn.currentState == 1 & kongBtn.currentState == 1)
                 {
                     CInfo aux1 = new CInfo(3, 1, 50, 70, CGameConstants.HIGH_SCORE, 0, 0, 0);
                     CGame.inst().setState(new CSurvivalState(aux1));
@@ -108,9 +122,11 @@ class CKaijuSelectionState:CGameState
     {
         base.render();
         CSpriteManager.inst().render();
+        backBtn.render();
         dinoBtn.render();
         kongBtn.render();
         krakenBtn.render();
+        
     }
     override public void destroy()
     {
@@ -118,6 +134,7 @@ class CKaijuSelectionState:CGameState
         dinoBtn.destroy();
         kongBtn.destroy();
         krakenBtn.destroy();
+        backBtn.destroy();
 
     }
     public bool dinoClick()
@@ -174,6 +191,28 @@ class CKaijuSelectionState:CGameState
             float button1MaxX = krakenBtn.getX() + krakenBtn.getWidth();
             float button1MinY = krakenBtn.getY();
             float button1MaxY = krakenBtn.getY() + krakenBtn.getHeight();
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+
+    public bool backClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = backBtn.getX();
+            float button1MaxX = backBtn.getX() + backBtn.getWidth();
+            float button1MinY = backBtn.getY();
+            float button1MaxY = backBtn.getY() + krakenBtn.getHeight();
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)

@@ -7,15 +7,18 @@ public class CLevelState : CGameState
     const int STATE_PLAYING = 0;
     const int STATE_WIN = 1;
     const int STATE_LOSE = 2;
+    const int GO_BACKMENU = 3;
+    const int GO_TRYAGAIN = 4;
     //private CPlayer mPlayer;
     private int current_state;
     private Board mBoard;
     private Kaiju monster;
     private Enemy building;    
     private CText mText;
-    private CText resultText;
+   
     private CSprite screenDim;
-    private CText nextScreen;
+    private CSprite btnNextScreen;
+    
     private SkillBar skills;
     private CSprite backMenuBttn;
     private CSprite tryAgainBttn;
@@ -48,13 +51,8 @@ public class CLevelState : CGameState
         mText.setX(0);
         mText.setY(0);
         mText.setColor(Color.black);
-        resultText = new CText("", CText.alignment.TOP_CENTER);
-        resultText.setX(0);
-        resultText.setY(100);
-        nextScreen = new CText("Back to Menu",CText.alignment.CENTER,70);
-        nextScreen.setX(CGameConstants.SCREEN_WIDTH / 2);
-        nextScreen.setY(CGameConstants.SCREEN_HEIGHT / 2);
-        nextScreen.setVisible(false);
+        
+        
         
         
         mBoard.movementsLeft = stageInfo.movements; // MOVE TO CLASS
@@ -68,11 +66,12 @@ public class CLevelState : CGameState
         backMenuBttn = new CSprite();
         backMenuBttn.setSortingLayer("TextUI");        
         tryAgainBttn = new CSprite();
-        tryAgainBttn.setSortingLayer("TextUI");       
-               
-       
+        tryAgainBttn.setSortingLayer("TextUI");
+        btnNextScreen = new CSprite();
+        btnNextScreen.setSortingLayer("TextUI");
 
-}
+
+    }
 
     override public void init()
     {
@@ -90,8 +89,8 @@ public class CLevelState : CGameState
         screenDim.update();
         mText.setText("Moves: " + mBoard.getMovementsLeft().ToString());
         mText.update();
-        nextScreen.update();
-        resultText.update();
+        btnNextScreen.update();
+        
         skills.update();
         backMenuBttn.update();
         tryAgainBttn.update();
@@ -103,7 +102,7 @@ public class CLevelState : CGameState
                     if (CurrentStageData.currentKaiju.scale >= 100)
                     {
                         current_state = STATE_WIN;
-                        resultText.setText("YOU WIN");
+                        
                         monster.setState(4);
                         building.setState(1);
 
@@ -117,11 +116,11 @@ public class CLevelState : CGameState
                         screenDim.setY(0);
                         //nextScreen.setVisible(true);
                         current_state = STATE_LOSE;
-                        resultText.setText("YOU LOSE");
+                        
                         backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                         backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                         tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));
-                        tryAgainBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2+ 100);
+                        tryAgainBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2+ 150);
                         monster.setState(2);
 
                     }
@@ -137,11 +136,11 @@ public class CLevelState : CGameState
                 {
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                     screenDim.setX(0);
-                    screenDim.setY(0);
-                    nextScreen.setText("Next Level");
-                    nextScreen.setVisible(true);
+                    screenDim.setY(0);                    
+                    btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
+                    btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
 
-                    if (CMouse.firstPress())
+                    if (nextScreenClick())
                     {
                         CurrentStageData.clearData();                        
                         if (CurrentStageData.currentStage>= LevelsInfo.getLevelsAmount())
@@ -167,17 +166,27 @@ public class CLevelState : CGameState
             case STATE_LOSE:
                 if (backToMenuClick())
                 {
-                    CurrentStageData.clearData();
-                    CGame.inst().setState(new CMenuState());
+                    backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton_P"));
+                    current_state = GO_BACKMENU;
                     return;
                 }
                 if (tryAgainClick())
                 {
-                    CurrentStageData.clearData();
-                    CGame.inst().setState(new CLevelState(CurrentStageData.currentStage));
+                    tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton_P"));
+                    current_state = GO_TRYAGAIN;
                     return;
                 }
                 break;
+            case GO_BACKMENU:
+                CurrentStageData.clearData();
+                CGame.inst().setState(new CMenuState());
+                return;
+                
+            case GO_TRYAGAIN:
+                CurrentStageData.clearData();
+                CGame.inst().setState(new CLevelState(CurrentStageData.currentStage));
+                return;
+                
         }
 
 
@@ -192,12 +201,13 @@ public class CLevelState : CGameState
         screenDim.render();
         monster.render();
         building.render();
-        nextScreen.render();
+        
         mText.render();
-        resultText.render();
+        
         skills.render();
         backMenuBttn.render();
         tryAgainBttn.render();
+        btnNextScreen.render();
     }
 
     override public void destroy()
@@ -205,8 +215,7 @@ public class CLevelState : CGameState
         base.destroy();        
         mText.destroy();
         mText = null;
-        resultText.destroy();
-        resultText = null;
+        
         mBoard.destroy();
         mBoard = null;
         monster.destroy();
@@ -215,14 +224,15 @@ public class CLevelState : CGameState
         building = null;
         screenDim.destroy();
         screenDim = null;
-        nextScreen.destroy();
-        nextScreen = null;
+        
         skills.destroy();
         skills = null;
         backMenuBttn.destroy();
         backMenuBttn = null;
         tryAgainBttn.destroy();
         tryAgainBttn = null;
+        btnNextScreen.destroy();
+        btnNextScreen = null;
 
     }
     public bool tryAgainClick()
@@ -257,6 +267,27 @@ public class CLevelState : CGameState
             float button1MaxX = backMenuBttn.getX() + backMenuBttn.getWidth() / 2;
             float button1MinY = backMenuBttn.getY() - backMenuBttn.getHeight() / 2;
             float button1MaxY = backMenuBttn.getY() + backMenuBttn.getHeight() / 2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+    public bool nextScreenClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = btnNextScreen.getX() - btnNextScreen.getWidth() / 2;
+            float button1MaxX = btnNextScreen.getX() + btnNextScreen.getWidth() / 2;
+            float button1MinY = btnNextScreen.getY() - btnNextScreen.getHeight() / 2;
+            float button1MaxY = btnNextScreen.getY() + btnNextScreen.getHeight() / 2;
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)

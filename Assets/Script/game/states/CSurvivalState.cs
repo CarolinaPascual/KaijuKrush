@@ -16,7 +16,7 @@ class CSurvivalState : CGameState
     private Enemy building;
 
     private CText scoreText;
-    private CText resultText;
+    
     private CSprite screenDim;
     private CText timeLeft;
     private SkillBar skills;
@@ -47,9 +47,7 @@ class CSurvivalState : CGameState
         mBoard = new Board(1);
 
         building = new Enemy(0);
-        resultText = new CText("", CText.alignment.TOP_CENTER);
-        resultText.setX(0);
-        resultText.setY(100);
+        
 
         timeLeft = new CText("Time: ", CText.alignment.TOP_CENTER);
         timeLeft.setX(0);
@@ -93,7 +91,7 @@ class CSurvivalState : CGameState
         building.update();
         screenDim.update();
         mTimer.update();
-        resultText.update();
+        
         skills.update();
         backMenuBttn.update();
         tryAgainBttn.update();
@@ -109,7 +107,7 @@ class CSurvivalState : CGameState
                     if (CurrentStageData.currentKaiju.scale >= 100)
                     {
                         current_state = STATE_WIN;
-                        resultText.setText("YOU WIN");
+                        
                         monster.setState(4);
                         building.setState(1);
 
@@ -123,7 +121,7 @@ class CSurvivalState : CGameState
                         screenDim.setY(0);
 
                         current_state = STATE_LOSE;
-                        resultText.setText("YOU LOSE");
+                        
                         backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                         backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                         tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));
@@ -146,16 +144,24 @@ class CSurvivalState : CGameState
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
                     screenDim.setX(0);
                     screenDim.setY(0);
+                    backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
+                    backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
+                    tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));
+                    tryAgainBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 100);
 
-
-                    if (CMouse.firstPress())
+                    if (backToMenuClick())
                     {
                         CurrentStageData.clearData();
-
                         CGame.inst().setState(new CMenuState());
-
-
+                        return;
                     }
+                    if (tryAgainClick())
+                    {
+                        CurrentStageData.clearData();
+                        CGame.inst().setState(new CSurvivalState(tryAgainInfo));
+                        return;
+                    }
+                   
 
                     if (Camera.main.transform.position.x > 360)
                     {
@@ -198,7 +204,7 @@ class CSurvivalState : CGameState
         monster.render();
         building.render();
         timeLeft.render();
-        resultText.render();
+        
         skills.render();
         backMenuBttn.render();
         tryAgainBttn.render();
@@ -209,8 +215,7 @@ class CSurvivalState : CGameState
     {
         base.destroy();
       
-        resultText.destroy();
-        resultText = null;
+        
         mBoard.destroy();
         mBoard = null;
         monster.destroy();
