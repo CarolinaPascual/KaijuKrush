@@ -9,6 +9,7 @@ public class CLevelState : CGameState
     const int STATE_LOSE = 2;
     const int GO_BACKMENU = 3;
     const int GO_TRYAGAIN = 4;
+    const int STATE_PAUSE = 5;
     //private CPlayer mPlayer;
     private int current_state;
     private Board mBoard;
@@ -22,6 +23,7 @@ public class CLevelState : CGameState
     private SkillBar skills;
     private CSprite backMenuBttn;
     private CSprite tryAgainBttn;
+    private CSprite optionsBttn;
     
 
 
@@ -83,6 +85,18 @@ public class CLevelState : CGameState
         base.update();
         //CSpriteManager.update();
         CMouse.update();
+        if (current_state == STATE_PAUSE)
+        {
+            backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
+            backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
+            screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
+            screenDim.setX(0);
+            screenDim.setY(0);
+            btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
+            btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
+
+            return;
+        }
         mBoard.update();
         monster.update();
         building.update();
@@ -97,6 +111,11 @@ public class CLevelState : CGameState
         switch (current_state)
         {
             case STATE_PLAYING:
+                if (optionsClick())
+                {
+                    current_state = STATE_PAUSE;
+                        return;
+                }
                 if (mBoard.current_state == 0)
                 {
                     if (CurrentStageData.currentKaiju.scale >= 100)
@@ -186,6 +205,7 @@ public class CLevelState : CGameState
                 CurrentStageData.clearData();
                 CGame.inst().setState(new CLevelState(CurrentStageData.currentStage));
                 return;
+            
                 
         }
 
@@ -288,6 +308,27 @@ public class CLevelState : CGameState
             float button1MaxX = btnNextScreen.getX() + btnNextScreen.getWidth() / 2;
             float button1MinY = btnNextScreen.getY() - btnNextScreen.getHeight() / 2;
             float button1MaxY = btnNextScreen.getY() + btnNextScreen.getHeight() / 2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+    public bool optionsClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = optionsBttn.getX() - optionsBttn.getWidth() / 2;
+            float button1MaxX = optionsBttn.getX() + optionsBttn.getWidth() / 2;
+            float button1MinY = optionsBttn.getY() - optionsBttn.getHeight() / 2;
+            float button1MaxY = optionsBttn.getY() + optionsBttn.getHeight() / 2;
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
