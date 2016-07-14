@@ -9,8 +9,19 @@ public class SoundList : MonoBehaviour
     public AudioClip levelMusic;
     public AudioClip comer;
     public AudioClip destruccion1;
+    public AudioClip lose1;
+    public AudioClip lose2;
+    public AudioClip lose3;
     public AudioSource musicSource;
-
+    public AudioClip kaijuSelection;
+    public AudioClip dino;
+    public AudioClip kraken1;
+    public AudioClip kraken2;
+    public AudioClip kong;
+    public AudioClip match;
+    public AudioClip match2;
+    public AudioClip match3;
+    public AudioClip newGame;
     void Awake()
     {
         if (instance == null)
@@ -41,10 +52,80 @@ public class SoundList : MonoBehaviour
     }
     public void playDestruccion1()
     {
-        AudioSource.PlayClipAtPoint(destruccion1, Camera.main.transform.position);
+        musicSource.clip = destruccion1;
+        musicSource.loop = false;
+        musicSource.Play();
     }
     public void stopMusic()
     {
         musicSource.Stop();
+    }
+    public void playSelection()
+    {
+        musicSource.clip = kaijuSelection;
+        musicSource.loop = false;
+        musicSource.Play();
+    }
+    public void playLose()
+    {
+        int randomIndex = Random.Range(1, 3);
+        switch (randomIndex)
+        {
+            case 1:
+                musicSource.clip = lose1;
+                break;
+            case 2:
+                musicSource.clip = lose2;
+                break;
+            case 3:
+                musicSource.clip = lose3;
+                break;
+        }
+        musicSource.loop = false;
+        musicSource.Play();
+
+
+    }
+    public void playDino()
+    {
+        AudioSource.PlayClipAtPoint(dino, Camera.main.transform.position);
+    }
+    public void playKraken()
+    {
+        //int randomIndex = Random.Range(1, 2);
+        //switch (randomIndex)
+        //{
+            //case 1:
+              //  AudioSource.PlayClipAtPoint(kraken1, Camera.main.transform.position);
+                //break;
+            //case 2:
+                AudioSource.PlayClipAtPoint(kraken2, Camera.main.transform.position);
+              //  break;
+        //}
+    }
+    public void playKong()
+    {
+        AudioSource.PlayClipAtPoint(kong, Camera.main.transform.position);
+    }
+    public void playMatch()
+    {
+        int randomIndex = Random.Range(1, 3);
+        switch (randomIndex)
+        {
+            case 1:
+                AudioSource.PlayClipAtPoint(match, Camera.main.transform.position);
+                break;
+            case 2:
+                AudioSource.PlayClipAtPoint(match2, Camera.main.transform.position);
+                break;
+            case 3:
+                AudioSource.PlayClipAtPoint(match3, Camera.main.transform.position);
+                break;
+        }
+        
+    }
+    public void playNewGame()
+    {
+        AudioSource.PlayClipAtPoint(newGame, Camera.main.transform.position);
     }
 }

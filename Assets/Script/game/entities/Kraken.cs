@@ -43,9 +43,11 @@ class Kraken:Kaiju
                     beast.initAnimation(1, 14, 8, false);
                     break;
                 case STATE_LOSE:
+                    SoundList.instance.playLose();
                     beast.initAnimation(23, 27, 8, false);
                     break;
                 case STATE_SKILL:
+                    SoundList.instance.playKraken();
                     beast.initAnimation(28, 39, 8, false);
                     break;
                 case STATE_WIN:

@@ -30,6 +30,8 @@ class CSurvivalState : CGameState
     public CSurvivalState(CInfo stageInfo)
     {
         CGame.inst().setImage("Sprites/level_Background00");
+        CurrentStageData.clearData();
+        SoundList.instance.playLevelMusic();
         tryAgainInfo = stageInfo;
         switch (stageInfo.Kaiju)
         {
@@ -103,6 +105,7 @@ class CSurvivalState : CGameState
             }
             if (backToMenuClick())
             {
+                SoundList.instance.stopMusic();
                 CGame.inst().setState(new CMenuState());
                 return;
             }
@@ -144,7 +147,7 @@ class CSurvivalState : CGameState
                     if (CurrentStageData.currentKaiju.scale >= 100)
                     {
                         current_state = STATE_WIN;
-                        
+                        SoundList.instance.stopMusic();
                         monster.setState(4);
                         building.setState(1);
 
@@ -171,7 +174,7 @@ class CSurvivalState : CGameState
 
             case STATE_WIN:
                 CGameConstants.HIGH_SCORE = CurrentStageData.score;
-                System.IO.File.WriteAllText("score.txt", CurrentStageData.score.ToString());
+                //System.IO.File.WriteAllText("score.txt", CurrentStageData.score.ToString());
                 tryAgainInfo.TargetScore = CurrentStageData.score;
                 if (!building.building.isEnded())
                 {
@@ -190,6 +193,7 @@ class CSurvivalState : CGameState
                     if (backToMenuClick())
                     {
                         CurrentStageData.clearData();
+                        SoundList.instance.stopMusic();
                         CGame.inst().setState(new CMenuState());
                         return;
                     }
@@ -217,6 +221,7 @@ class CSurvivalState : CGameState
                 if (backToMenuClick())
                 {
                     CurrentStageData.clearData();
+                    SoundList.instance.stopMusic();
                     CGame.inst().setState(new CMenuState());
                     return;
                 }

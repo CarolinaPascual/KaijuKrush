@@ -14,7 +14,7 @@ class CKaijuSelectionState:CGameState
 
     public CKaijuSelectionState()
     {
-
+        SoundList.instance.playSelection();
         CGame.inst().setImage("Sprites/Menu-Sin-Logo");
         CGame.inst().getBakcground().setX(0);
         CGame.inst().getBakcground().setY(0);

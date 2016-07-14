@@ -41,9 +41,11 @@ class Kong : Kaiju
                 beast.initAnimation(9, 12, 6, false);
                 break;
             case STATE_LOSE:
+                SoundList.instance.playLose();
                 beast.initAnimation(13, 16, 6, true);
                 break;
             case STATE_SKILL:
+                SoundList.instance.playKong();
                 beast.initAnimation(17, 27, 6, false);
                 break;
             case STATE_WIN:

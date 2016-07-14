@@ -142,7 +142,7 @@ public class CLevelState : CGameState
                     {
                         current_state = STATE_WIN;
                         SoundList.instance.stopMusic();
-                        SoundList.instance.playDestruccion1();
+                        
                         monster.setState(4);
                         building.setState(1);
 
@@ -155,8 +155,7 @@ public class CLevelState : CGameState
                         screenDim.setX(0);
                         screenDim.setY(0);
                         //nextScreen.setVisible(true);
-                        current_state = STATE_LOSE;
-                        
+                        current_state = STATE_LOSE;                       
                         backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                         backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                         tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));

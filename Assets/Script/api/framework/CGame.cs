@@ -16,7 +16,7 @@ public class CGame : MonoBehaviour
             throw new UnityException("Error in CGame(). You are not allowed to instantiate it more than once.");
         }
         
-        CGameConstants.HIGH_SCORE =int.Parse( System.IO.File.ReadAllText("score.txt"));
+        //CGameConstants.HIGH_SCORE =int.Parse( System.IO.File.ReadAllText("score.txt"));
         
         
         mInstance = this;

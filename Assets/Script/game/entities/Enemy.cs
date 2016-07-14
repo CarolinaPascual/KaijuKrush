@@ -55,6 +55,7 @@ public class Enemy
                 building.initAnimation(1, 1, 6, false);
                 break;
             case STATE_DESTRUCTION:
+                SoundList.instance.playDestruccion1();
                 switch (type)
                 {
                     case BUILDING:

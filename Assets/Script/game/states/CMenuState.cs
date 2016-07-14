@@ -45,6 +45,7 @@ class CMenuState:CGameState
         exit.update();
         if (storyClick())
         {
+            SoundList.instance.playNewGame();
             storyBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Story_Mode_p"));
             buttonClicked = 1;                 
                         

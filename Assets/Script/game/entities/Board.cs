@@ -643,6 +643,11 @@ public class Board
             CSpriteManager.inst().add(new ArrowAnimation(1,1));
         if (totalScore>15)
             CSpriteManager.inst().add(new ArrowAnimation(1,2));
+        
+        if (totalScore > 0)
+        {
+            SoundList.instance.playMatch();
+        }
         CurrentStageData.addScore(totalScore);
     }
 
