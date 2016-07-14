@@ -632,17 +632,21 @@ public class Board
         }
         if (totalScore < 0)
             CSpriteManager.inst().add(new ArrowAnimation(4));
-        else if (totalScore < 2)
+        else if (totalScore < 3)
             CSpriteManager.inst().add(new ArrowAnimation(3));
-        else if (totalScore < 5)
-            CSpriteManager.inst().add(new ArrowAnimation(2));
+        else if (totalScore < 5) { 
+            CSpriteManager.inst().add(new ArrowAnimation(3));
+            CSpriteManager.inst().add(new ArrowAnimation(3,1));
+        }
         else
-            CSpriteManager.inst().add(new ArrowAnimation(1));
+            CSpriteManager.inst().add(new ArrowAnimation(2));
 
-        if (totalScore>9)
-            CSpriteManager.inst().add(new ArrowAnimation(1,1));
+        if (totalScore > 9) {
+            CSpriteManager.inst().add(new ArrowAnimation(2));
+            CSpriteManager.inst().add(new ArrowAnimation(2,1));
+        }
         if (totalScore>15)
-            CSpriteManager.inst().add(new ArrowAnimation(1,2));
+            CSpriteManager.inst().add(new ArrowAnimation(2,2));
         
         if (totalScore > 0)
         {

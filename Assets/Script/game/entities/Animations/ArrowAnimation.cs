@@ -17,10 +17,10 @@ class ArrowAnimation:CSprite
                 setX(110);
                 break;
             case 1:
-                setX(180);
+                setX(125);
                 break;
             case 2:
-                setX(250);
+                setX(140);
                 break;
         }
         

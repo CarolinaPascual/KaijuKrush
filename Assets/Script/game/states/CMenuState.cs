@@ -9,6 +9,7 @@ class CMenuState:CGameState
     private CSprite storyBtn;
     private CSprite endlessBtn;
     private CSprite exit;
+    private CSprite creditsBtn;
     private int buttonClicked = 0;
     
     public CMenuState()
@@ -30,6 +31,11 @@ class CMenuState:CGameState
         exit.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Exit"));
         exit.setXY(200, 1020);
         exit.setSortingLayer("Icons");
+
+        creditsBtn = new CSprite();
+        creditsBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Credits_button"));
+        creditsBtn.setXY(650, 1220);
+        creditsBtn.setSortingLayer("Icons");
     }
 
     override public void init()
@@ -43,6 +49,11 @@ class CMenuState:CGameState
         storyBtn.update();
         endlessBtn.update();
         exit.update();
+        creditsBtn.update();
+        if (creditsClick())
+        {
+            CGame.inst().setState(new CCreditsState());
+        }
         if (storyClick())
         {
             SoundList.instance.playNewGame();
@@ -88,6 +99,7 @@ class CMenuState:CGameState
         storyBtn.render();
         endlessBtn.render();
         exit.render();
+        creditsBtn.render();
     }
     override public void destroy()
     {
@@ -95,6 +107,7 @@ class CMenuState:CGameState
         storyBtn.destroy();
         endlessBtn.destroy();
         exit.destroy();
+        creditsBtn.destroy();
 
     }
     public bool storyClick()
@@ -151,6 +164,28 @@ class CMenuState:CGameState
             float button1MaxX = exit.getX() + exit.getWidth();
             float button1MinY = exit.getY() ;
             float button1MaxY = exit.getY() + exit.getHeight();
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+
+    public bool creditsClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = creditsBtn.getX();
+            float button1MaxX = creditsBtn.getX() + creditsBtn.getWidth();
+            float button1MinY = creditsBtn.getY();
+            float button1MaxY = creditsBtn.getY() + creditsBtn.getHeight();
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
