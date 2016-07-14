@@ -7,6 +7,7 @@ public class CGame : MonoBehaviour
     private CGameState mState;
     private CSprite imgBackground;
     private CSpriteManager mSpriteManager;
+    
 
     void Awake()
     {
@@ -14,15 +15,20 @@ public class CGame : MonoBehaviour
         {
             throw new UnityException("Error in CGame(). You are not allowed to instantiate it more than once.");
         }
-
+        
+        CGameConstants.HIGH_SCORE =int.Parse( System.IO.File.ReadAllText("score.txt"));
+        
+        
         mInstance = this;
 
         CMouse.init();
         CurrentStageData.init();        
         LevelsInfo.init();
-        imgBackground = new CSprite();
+        imgBackground = new CSprite();        
         setState(new CMenuState());
         mSpriteManager = new CSpriteManager();
+        
+        
         //setImage("Sprites/Placeholders_Prototype/level_Background");
     }
     static public CGame inst()

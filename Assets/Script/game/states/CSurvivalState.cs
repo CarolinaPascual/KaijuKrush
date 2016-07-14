@@ -9,7 +9,7 @@ class CSurvivalState : CGameState
     const int STATE_PLAYING = 0;
     const int STATE_WIN = 1;
     const int STATE_LOSE = 2;
-    
+    const int STATE_PAUSE = 3;
     private int current_state;
     private Board mBoard;
     private Kaiju monster;
@@ -24,7 +24,8 @@ class CSurvivalState : CGameState
     private CSprite tryAgainBttn;
     private Timer mTimer;
     private CInfo tryAgainInfo;
-
+    private CSprite optionsBttn;
+    private CSprite btnNextScreen;
 
     public CSurvivalState(CInfo stageInfo)
     {
@@ -58,7 +59,8 @@ class CSurvivalState : CGameState
         scoreText.setX(400);
         scoreText.setY(0);
         scoreText.setColor(Color.black);
-        
+        btnNextScreen = new CSprite();
+        btnNextScreen.setSortingLayer("TextUI");
 
         mBoard.targetScore = stageInfo.TargetScore; // MOVE TO CLASS
         float scoreCoefficient = (float)70 / (float)mBoard.targetScore;
@@ -73,6 +75,10 @@ class CSurvivalState : CGameState
         backMenuBttn.setSortingLayer("TextUI");
         tryAgainBttn = new CSprite();
         tryAgainBttn.setSortingLayer("TextUI");
+        optionsBttn = new CSprite();
+        optionsBttn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Pause_Button"));
+        optionsBttn.setXY(680, 40);
+        optionsBttn.setSortingLayer("TextUI");
 
     }
 
@@ -86,15 +92,34 @@ class CSurvivalState : CGameState
         base.update();
         //CSpriteManager.update();
         CMouse.update();
+        if (current_state == STATE_PAUSE)
+        {
+            if (nextScreenClick())
+            {
+                screenDim.setImage(null);
+                backMenuBttn.setImage(null);
+                btnNextScreen.setImage(null);
+                current_state = STATE_PLAYING;
+            }
+            if (backToMenuClick())
+            {
+                CGame.inst().setState(new CMenuState());
+                return;
+            }
+
+
+            return;
+        }
         mBoard.update();
         monster.update();
         building.update();
         screenDim.update();
         mTimer.update();
-        
+        optionsBttn.update();
         skills.update();
         backMenuBttn.update();
         tryAgainBttn.update();
+        btnNextScreen.update();
         timeLeft.setText("TIME: " + (int)(CurrentStageData.currentTimer.getTimeLeft()));
         timeLeft.update();
         scoreText.setText("SCORE: " + (CurrentStageData.score * 10));
@@ -102,6 +127,18 @@ class CSurvivalState : CGameState
         switch (current_state)
         {
             case STATE_PLAYING:
+                if (optionsClick())
+                {
+                    current_state = STATE_PAUSE;
+                    backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
+                    backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
+                    screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
+                    screenDim.setX(0);
+                    screenDim.setY(0);
+                    btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
+                    btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
+                    return;
+                }
                 if (mBoard.current_state == 0)
                 {
                     if (CurrentStageData.currentKaiju.scale >= 100)
@@ -134,6 +171,7 @@ class CSurvivalState : CGameState
 
             case STATE_WIN:
                 CGameConstants.HIGH_SCORE = CurrentStageData.score;
+                System.IO.File.WriteAllText("score.txt", CurrentStageData.score.ToString());
                 tryAgainInfo.TargetScore = CurrentStageData.score;
                 if (!building.building.isEnded())
                 {
@@ -204,18 +242,21 @@ class CSurvivalState : CGameState
         monster.render();
         building.render();
         timeLeft.render();
-        
+        optionsBttn.render();
         skills.render();
         backMenuBttn.render();
         tryAgainBttn.render();
         scoreText.render();
+        btnNextScreen.render();
     }
 
     override public void destroy()
     {
         base.destroy();
-      
-        
+        btnNextScreen.destroy();
+        btnNextScreen = null;
+        optionsBttn.destroy();
+        optionsBttn = null; 
         mBoard.destroy();
         mBoard = null;
         monster.destroy();
@@ -268,6 +309,48 @@ class CSurvivalState : CGameState
             float button1MaxX = backMenuBttn.getX() + backMenuBttn.getWidth() / 2;
             float button1MinY = backMenuBttn.getY() - backMenuBttn.getHeight() / 2;
             float button1MaxY = backMenuBttn.getY() + backMenuBttn.getHeight() / 2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+    public bool optionsClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = optionsBttn.getX() - optionsBttn.getWidth() / 2;
+            float button1MaxX = optionsBttn.getX() + optionsBttn.getWidth() / 2;
+            float button1MinY = optionsBttn.getY() - optionsBttn.getHeight() / 2;
+            float button1MaxY = optionsBttn.getY() + optionsBttn.getHeight() / 2;
+            float mouseX = CMouse.getPos().x;
+            float mouseY = CMouse.getPos().y;
+            if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)
+            {
+                clicked = true;
+            }
+
+        }
+
+        return clicked;
+    }
+    public bool nextScreenClick()
+    {
+        bool clicked = false;
+
+        if (CMouse.firstPress())
+        {
+            float button1MinX = btnNextScreen.getX() - btnNextScreen.getWidth() / 2;
+            float button1MaxX = btnNextScreen.getX() + btnNextScreen.getWidth() / 2;
+            float button1MinY = btnNextScreen.getY() - btnNextScreen.getHeight() / 2;
+            float button1MaxY = btnNextScreen.getY() + btnNextScreen.getHeight() / 2;
             float mouseX = CMouse.getPos().x;
             float mouseY = CMouse.getPos().y;
             if (mouseX >= button1MinX && mouseX <= button1MaxX && mouseY >= button1MinY && mouseY <= button1MaxY)

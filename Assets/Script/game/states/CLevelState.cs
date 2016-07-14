@@ -29,6 +29,7 @@ public class CLevelState : CGameState
 
     public CLevelState(int stageNumber)
     {
+        SoundList.instance.playLevelMusic();
         CInfo stageInfo = LevelsInfo.getLevel(stageNumber);
         CGame.inst().setImage("Sprites/level_Background0" + stageInfo.building.ToString());
         CurrentStageData.currentStage = stageNumber;
@@ -71,6 +72,11 @@ public class CLevelState : CGameState
         tryAgainBttn.setSortingLayer("TextUI");
         btnNextScreen = new CSprite();
         btnNextScreen.setSortingLayer("TextUI");
+        optionsBttn = new CSprite();
+        optionsBttn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Pause_Button"));
+        optionsBttn.setXY(680, 40);
+        optionsBttn.setSortingLayer("TextUI");
+       
 
 
     }
@@ -87,13 +93,20 @@ public class CLevelState : CGameState
         CMouse.update();
         if (current_state == STATE_PAUSE)
         {
-            backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
-            backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
-            screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-            screenDim.setX(0);
-            screenDim.setY(0);
-            btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
-            btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
+            if (nextScreenClick())
+            {
+                screenDim.setImage(null);
+                backMenuBttn.setImage(null);
+                btnNextScreen.setImage(null);
+                current_state = STATE_PLAYING;
+            }
+            if (backToMenuClick())
+            {
+                SoundList.instance.stopMusic();
+                CGame.inst().setState(new CMenuState());
+                return;
+            }
+            
 
             return;
         }
@@ -104,7 +117,7 @@ public class CLevelState : CGameState
         mText.setText("Moves: " + mBoard.getMovementsLeft().ToString());
         mText.update();
         btnNextScreen.update();
-        
+        optionsBttn.update();
         skills.update();
         backMenuBttn.update();
         tryAgainBttn.update();
@@ -114,14 +127,22 @@ public class CLevelState : CGameState
                 if (optionsClick())
                 {
                     current_state = STATE_PAUSE;
-                        return;
+                    backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
+                    backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
+                    screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
+                    screenDim.setX(0);
+                    screenDim.setY(0);
+                    btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
+                    btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
+                    return;
                 }
                 if (mBoard.current_state == 0)
                 {
                     if (CurrentStageData.currentKaiju.scale >= 100)
                     {
                         current_state = STATE_WIN;
-                        
+                        SoundList.instance.stopMusic();
+                        SoundList.instance.playDestruccion1();
                         monster.setState(4);
                         building.setState(1);
 
@@ -161,11 +182,15 @@ public class CLevelState : CGameState
 
                     if (nextScreenClick())
                     {
+                        
                         CurrentStageData.clearData();                        
                         if (CurrentStageData.currentStage>= LevelsInfo.getLevelsAmount())
                         {
+                            SoundList.instance.stopMusic();
                             CGame.inst().setState(new CMenuState());
-                        }else { 
+                            
+                        }
+                        else { 
                         CGame.inst().setState(new CLevelState(CurrentStageData.currentStage+1));
                     }
                     }
@@ -198,6 +223,7 @@ public class CLevelState : CGameState
                 break;
             case GO_BACKMENU:
                 CurrentStageData.clearData();
+                SoundList.instance.stopMusic();
                 CGame.inst().setState(new CMenuState());
                 return;
                 
@@ -221,7 +247,7 @@ public class CLevelState : CGameState
         screenDim.render();
         monster.render();
         building.render();
-        
+        optionsBttn.render();
         mText.render();
         
         skills.render();
@@ -232,10 +258,12 @@ public class CLevelState : CGameState
 
     override public void destroy()
     {
-        base.destroy();        
+        base.destroy();
+               
         mText.destroy();
         mText = null;
-        
+        optionsBttn.destroy();
+        optionsBttn = null;
         mBoard.destroy();
         mBoard = null;
         monster.destroy();

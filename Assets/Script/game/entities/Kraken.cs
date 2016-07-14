@@ -43,7 +43,7 @@ class Kraken:Kaiju
                     beast.initAnimation(1, 14, 8, false);
                     break;
                 case STATE_LOSE:
-                    beast.initAnimation(23, 27, 8, true);
+                    beast.initAnimation(23, 27, 8, false);
                     break;
                 case STATE_SKILL:
                     beast.initAnimation(28, 39, 8, false);

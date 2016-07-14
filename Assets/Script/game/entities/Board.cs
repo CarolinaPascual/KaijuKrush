@@ -546,6 +546,7 @@ public class Board
                         if (lastType == CurrentStageData.currentKaiju.prefferedFood) {
                             auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
+                            SoundList.instance.playComer();
                         }else if (lastType == 4)
                         {
                             auxScore = -4;
@@ -599,6 +600,7 @@ public class Board
                         {
                             auxScore = 5;                            
                             CurrentStageData.currentKaiju.setState(1);
+                            SoundList.instance.playComer();
                         }
                         else if (lastType == 4)
                         {
@@ -628,6 +630,19 @@ public class Board
                 }
             }
         }
+        if (totalScore < 0)
+            CSpriteManager.inst().add(new ArrowAnimation(4));
+        else if (totalScore < 2)
+            CSpriteManager.inst().add(new ArrowAnimation(3));
+        else if (totalScore < 5)
+            CSpriteManager.inst().add(new ArrowAnimation(2));
+        else
+            CSpriteManager.inst().add(new ArrowAnimation(1));
+
+        if (totalScore>9)
+            CSpriteManager.inst().add(new ArrowAnimation(1,1));
+        if (totalScore>15)
+            CSpriteManager.inst().add(new ArrowAnimation(1,2));
         CurrentStageData.addScore(totalScore);
     }
 

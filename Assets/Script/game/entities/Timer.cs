@@ -6,7 +6,7 @@ using UnityEngine;
 
 class Timer
     {
-        public float maxTime = 15;
+        public float maxTime = 60;
         public float timeLeft { get; set; }
         public float cumulativeTime { get; set; }
         public float difficultyTime { get; set; }
