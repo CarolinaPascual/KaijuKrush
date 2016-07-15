@@ -25,6 +25,7 @@ public class SoundList : MonoBehaviour
     public AudioClip match4;
     public AudioClip newGame;
     public AudioClip bomb;
+    public AudioClip newGame2;
     
     void Awake()
     {
@@ -66,7 +67,10 @@ public class SoundList : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(bomb, Camera.main.transform.position);
     }
-   
+   public void playNewGame2()
+    {
+        AudioSource.PlayClipAtPoint(newGame2, Camera.main.transform.position);
+    }
     public void playDestruccion1()
     {
         musicSource.clip = destruccion1;

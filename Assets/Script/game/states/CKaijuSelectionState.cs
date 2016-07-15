@@ -70,6 +70,7 @@ class CKaijuSelectionState:CGameState
                     kongBtn.leave();
                     krakenBtn.leave();                    
                     selected = 1;
+                    SoundList.instance.playNewGame2();
                     return;
                 }
                 else
@@ -78,7 +79,7 @@ class CKaijuSelectionState:CGameState
                     
                     dinoBtn.leave();
                     krakenBtn.leave();
-                   
+                    SoundList.instance.playNewGame2();
                     selected = 2;
                     return;
 
@@ -88,7 +89,7 @@ class CKaijuSelectionState:CGameState
                     
                     kongBtn.leave();
                     dinoBtn.leave();
-                    
+                    SoundList.instance.playNewGame2();
                     selected  = 3;
                     return;
                 }

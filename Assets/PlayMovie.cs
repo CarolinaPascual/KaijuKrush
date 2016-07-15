@@ -27,5 +27,10 @@ public class PlayMovie : MonoBehaviour {
         {
             movie.Play();
         }
+        if (!movie.isPlaying)
+        {
+            
+            Application.LoadLevel("Scene 01");
+        }
 	}
 }
