@@ -20,6 +20,16 @@ public class CGame : MonoBehaviour
         
         
         mInstance = this;
+        Resolution res;
+
+     
+            res = Screen.currentResolution;
+            if (res.refreshRate == 60)
+                QualitySettings.vSyncCount = 1;
+            if (res.refreshRate == 120)
+                QualitySettings.vSyncCount = 2;
+           
+        
 
         CMouse.init();
         CurrentStageData.init();        

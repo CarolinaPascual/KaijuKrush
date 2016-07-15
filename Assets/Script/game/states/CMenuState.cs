@@ -17,8 +17,8 @@ class CMenuState:CGameState
 
         
         CGame.inst().setImage("Sprites/Menu");
-        CGame.inst().getBakcground().setX(0);
-        CGame.inst().getBakcground().setY(0);
+        //CGame.inst().getBakcground().setX(0);
+        //CGame.inst().getBakcground().setY(0);
 
         storyBtn = new CSprite();
         storyBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Story_Mode"));

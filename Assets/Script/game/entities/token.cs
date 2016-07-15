@@ -11,7 +11,7 @@ public class token
     const int STATE_NORMAL = 0;
     const int STATE_MOVING = 1;
 
-    const int SPEED = 8;
+    const int SPEED = 300;
 
     public CSprite imgIcon { get; set; }
     public int Type { get; set; }
@@ -75,30 +75,36 @@ public class token
     {
         if (imgIcon.getX() > finalX)
         {
-            imgIcon.setX(imgIcon.getX() - SPEED);
+            imgIcon.setVelX(-SPEED);
+            //imgIcon.setX(imgIcon.getX() - SPEED);
         }
         if (imgIcon.getX() < finalX)
         {
-            imgIcon.setX(imgIcon.getX() + SPEED);
+            imgIcon.setVelX(SPEED);
+            //imgIcon.setX(imgIcon.getX() + SPEED);
         }
 
         //Corrigo la posicion si estoy mas cerca que la velocidad
-        if (Math.Abs(imgIcon.getX() - finalX)< SPEED)            
+        if (Math.Abs(imgIcon.getX()*Time.deltaTime - finalX)<= SPEED)            
         {
-            imgIcon.setX(finalX);            
+            imgIcon.setX(finalX);
+            imgIcon.setVelX(0);           
         }
 
         if (imgIcon.getY() < finalY)
         {
-            imgIcon.setY(imgIcon.getY() + SPEED);
+            imgIcon.setVelY(SPEED);
+            //imgIcon.setY(imgIcon.getY() + SPEED);
         }
         if (imgIcon.getY() > finalY)
         {
-            imgIcon.setY(imgIcon.getY() - SPEED);
+            imgIcon.setVelY(-SPEED);
+            //imgIcon.setY(imgIcon.getY() - SPEED);
         }
-        if (Math.Abs(imgIcon.getY() - finalY) < SPEED)
+        if (Math.Abs(imgIcon.getY()*Time.deltaTime - finalY) <= 400) //SPEED)
         {
-            imgIcon.setY(finalY);           
+            imgIcon.setY(finalY);
+            imgIcon.setVelY(0);         
         }
 
 
