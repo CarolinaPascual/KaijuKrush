@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UnityEngine;
 
 class KaijuSelectButton : CSprite
 {
@@ -51,17 +51,20 @@ class KaijuSelectButton : CSprite
     {
         if (getX() < finalX)
         {
-            setX(getX() + 10);
+            setVelX(500);
+            //setX(getX() + 10);
 
 
         }
         else if (getX()> finalX)
         {
-            setX(getX() - 10);
+            setVelX(-500);
+            //setX(getX() - 10);
         }
-        if (Math.Abs(getX() - finalX) < 10)
-        {
+        if (Math.Abs(getX() - finalX) <= 500 * Time.deltaTime)
+            {
             setX(finalX);
+            setVelX(0);
             currentState = STATE_NORMAL;
         }
 

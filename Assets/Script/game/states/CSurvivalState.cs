@@ -137,8 +137,8 @@ class CSurvivalState : CGameState
                     backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                     backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                    screenDim.setX(0);
-                    screenDim.setY(0);
+                    screenDim.setX(351);
+                    screenDim.setY(830);
                     btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
                     btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
                     return;
@@ -158,8 +158,8 @@ class CSurvivalState : CGameState
 
 
                         screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                        screenDim.setX(0);
-                        screenDim.setY(0);
+                        screenDim.setX(351);
+                        screenDim.setY(830);
 
                         current_state = STATE_LOSE;
                         
@@ -184,8 +184,8 @@ class CSurvivalState : CGameState
                 else
                 {
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                    screenDim.setX(0);
-                    screenDim.setY(0);
+                    screenDim.setX(351);
+                    screenDim.setY(830);
                     backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                     backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                     tryAgainBttn.setImage(Resources.Load<Sprite>("Sprites/tryAgainButton"));

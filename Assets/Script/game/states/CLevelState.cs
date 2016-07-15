@@ -131,8 +131,9 @@ public class CLevelState : CGameState
                     backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
                     backMenuBttn.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                    screenDim.setX(0);
-                    screenDim.setY(0);
+                    
+                    screenDim.setX(351);
+                    screenDim.setY(830);
                     btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
                     btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2 + 150);
                     return;
@@ -153,8 +154,8 @@ public class CLevelState : CGameState
                         
                                                 
                         screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                        screenDim.setX(0);
-                        screenDim.setY(0);
+                        screenDim.setX(351);
+                        screenDim.setY(830);
                         //nextScreen.setVisible(true);
                         current_state = STATE_LOSE;                       
                         backMenuBttn.setImage(Resources.Load<Sprite>("Sprites/BackMenuButton"));
@@ -175,8 +176,8 @@ public class CLevelState : CGameState
                 else
                 {
                     screenDim.setImage(Resources.Load<Sprite>("Sprites/screenShade"));
-                    screenDim.setX(0);
-                    screenDim.setY(0);                    
+                    screenDim.setX(351);
+                    screenDim.setY(830);
                     btnNextScreen.setImage(Resources.Load<Sprite>("Sprites/Buttons/Button_Continue"));
                     btnNextScreen.setXY(CGameConstants.SCREEN_WIDTH / 2, CGameConstants.SCREEN_HEIGHT / 2);
 

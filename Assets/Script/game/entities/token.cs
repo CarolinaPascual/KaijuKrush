@@ -11,7 +11,7 @@ public class token
     const int STATE_NORMAL = 0;
     const int STATE_MOVING = 1;
 
-    const int SPEED = 300;
+    const int SPEED = 400;
 
     public CSprite imgIcon { get; set; }
     public int Type { get; set; }
@@ -102,7 +102,7 @@ public class token
             imgIcon.setVelY(-SPEED);
             //imgIcon.setY(imgIcon.getY() - SPEED);
         }
-        if (Math.Abs(imgIcon.getY() - finalY) <= 400 * Time.deltaTime) //SPEED)
+        if (Math.Abs(imgIcon.getY() - finalY) <= SPEED * Time.deltaTime) //SPEED)
         {
             imgIcon.setVelY(0);  
             imgIcon.setY(finalY);
