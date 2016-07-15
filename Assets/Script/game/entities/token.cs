@@ -85,10 +85,11 @@ public class token
         }
 
         //Corrigo la posicion si estoy mas cerca que la velocidad
-        if (Math.Abs(imgIcon.getX()*Time.deltaTime - finalX)<= SPEED)            
+        if (Math.Abs(imgIcon.getX() - finalX)<= SPEED * Time.deltaTime)            
         {
+            imgIcon.setVelX(0);
             imgIcon.setX(finalX);
-            imgIcon.setVelX(0);           
+                     
         }
 
         if (imgIcon.getY() < finalY)
@@ -101,10 +102,11 @@ public class token
             imgIcon.setVelY(-SPEED);
             //imgIcon.setY(imgIcon.getY() - SPEED);
         }
-        if (Math.Abs(imgIcon.getY()*Time.deltaTime - finalY) <= 400) //SPEED)
+        if (Math.Abs(imgIcon.getY() - finalY) <= 400 * Time.deltaTime) //SPEED)
         {
+            imgIcon.setVelY(0);  
             imgIcon.setY(finalY);
-            imgIcon.setVelY(0);         
+                   
         }
 
 
