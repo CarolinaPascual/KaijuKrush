@@ -106,6 +106,7 @@ class CSurvivalState : CGameState
             if (backToMenuClick())
             {
                 SoundList.instance.stopMusic();
+                SoundList.instance.playMenuMusic();
                 CGame.inst().setState(new CMenuState());
                 return;
             }
@@ -194,6 +195,7 @@ class CSurvivalState : CGameState
                     {
                         CurrentStageData.clearData();
                         SoundList.instance.stopMusic();
+                        SoundList.instance.playMenuMusic();
                         CGame.inst().setState(new CMenuState());
                         return;
                     }
@@ -222,6 +224,7 @@ class CSurvivalState : CGameState
                 {
                     CurrentStageData.clearData();
                     SoundList.instance.stopMusic();
+                    SoundList.instance.playMenuMusic();
                     CGame.inst().setState(new CMenuState());
                     return;
                 }

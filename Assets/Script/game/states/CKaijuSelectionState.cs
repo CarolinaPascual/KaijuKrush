@@ -55,6 +55,7 @@ class CKaijuSelectionState:CGameState
 
         if (backClick())
         {
+            SoundList.instance.playMenuMusic();
             CGame.inst().setState(new CMenuState());
             return;
         }

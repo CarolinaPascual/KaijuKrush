@@ -24,8 +24,11 @@ public class CGame : MonoBehaviour
         CMouse.init();
         CurrentStageData.init();        
         LevelsInfo.init();
-        imgBackground = new CSprite();        
+        imgBackground = new CSprite();
+        
+        Handheld.PlayFullScreenMovie("IntroGame2.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
         setState(new CMenuState());
+        
         mSpriteManager = new CSpriteManager();
         
         

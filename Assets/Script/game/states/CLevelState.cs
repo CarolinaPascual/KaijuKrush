@@ -103,6 +103,7 @@ public class CLevelState : CGameState
             if (backToMenuClick())
             {
                 SoundList.instance.stopMusic();
+                SoundList.instance.playMenuMusic();
                 CGame.inst().setState(new CMenuState());
                 return;
             }
@@ -186,6 +187,7 @@ public class CLevelState : CGameState
                         if (CurrentStageData.currentStage>= LevelsInfo.getLevelsAmount())
                         {
                             SoundList.instance.stopMusic();
+                            SoundList.instance.playMenuMusic();
                             CGame.inst().setState(new CMenuState());
                             
                         }
@@ -223,6 +225,7 @@ public class CLevelState : CGameState
             case GO_BACKMENU:
                 CurrentStageData.clearData();
                 SoundList.instance.stopMusic();
+                SoundList.instance.playMenuMusic();
                 CGame.inst().setState(new CMenuState());
                 return;
                 

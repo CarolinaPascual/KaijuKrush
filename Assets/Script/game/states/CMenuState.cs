@@ -14,6 +14,7 @@ class CMenuState:CGameState
     
     public CMenuState()
     {
+
         
         CGame.inst().setImage("Sprites/Menu");
         CGame.inst().getBakcground().setX(0);
@@ -36,11 +37,13 @@ class CMenuState:CGameState
         creditsBtn.setImage(Resources.Load<Sprite>("Sprites/Buttons/Credits_button"));
         creditsBtn.setXY(650, 1220);
         creditsBtn.setSortingLayer("Icons");
+       
     }
 
     override public void init()
     {
         base.init();
+        
     }
     override public void update()
     {

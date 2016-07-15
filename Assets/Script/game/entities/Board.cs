@@ -549,6 +549,7 @@ public class Board
                             SoundList.instance.playComer();
                         }else if (lastType == 4)
                         {
+                            SoundList.instance.playBomb();
                             auxScore = -4;
                         }
                         switch (count)
@@ -604,6 +605,7 @@ public class Board
                         }
                         else if (lastType == 4)
                         {
+                            SoundList.instance.playBomb();
                             auxScore = -4;
                         }
                         switch (count)

@@ -7,6 +7,7 @@ public class SoundList : MonoBehaviour
     
     public static SoundList instance = null;
     public AudioClip levelMusic;
+    public AudioClip menuMusic;
     public AudioClip comer;
     public AudioClip destruccion1;
     public AudioClip lose1;
@@ -21,7 +22,10 @@ public class SoundList : MonoBehaviour
     public AudioClip match;
     public AudioClip match2;
     public AudioClip match3;
+    public AudioClip match4;
     public AudioClip newGame;
+    public AudioClip bomb;
+    
     void Awake()
     {
         if (instance == null)
@@ -46,10 +50,23 @@ public class SoundList : MonoBehaviour
         musicSource.Play();
 
     }
+    public void playMenuMusic()
+    {
+        //AudioSource.PlayClipAtPoint(levelMusic, Camera.main.transform.position);
+        musicSource.clip = menuMusic;
+        musicSource.loop = true;
+        musicSource.Play();
+
+    }
     public void playComer()
     {
         AudioSource.PlayClipAtPoint(comer, Camera.main.transform.position);
     }
+    public void playBomb()
+    {
+        AudioSource.PlayClipAtPoint(bomb, Camera.main.transform.position);
+    }
+   
     public void playDestruccion1()
     {
         musicSource.clip = destruccion1;
@@ -109,7 +126,7 @@ public class SoundList : MonoBehaviour
     }
     public void playMatch()
     {
-        int randomIndex = Random.Range(1, 3);
+        int randomIndex = Random.Range(1, 4);
         switch (randomIndex)
         {
             case 1:
@@ -121,6 +138,9 @@ public class SoundList : MonoBehaviour
             case 3:
                 AudioSource.PlayClipAtPoint(match3, Camera.main.transform.position);
                 break;
+            case 4:
+                AudioSource.PlayClipAtPoint(match4, Camera.main.transform.position);
+                break;
         }
         
     }
@@ -128,4 +148,5 @@ public class SoundList : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(newGame, Camera.main.transform.position);
     }
+    
 }
